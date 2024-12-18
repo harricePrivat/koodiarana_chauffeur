@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "677160284254",
+    "project_id": "koodiaranachauffeur",
+    "storage_bucket": "koodiaranachauffeur.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:677160284254:android:c735620bd2d50694f904cf",
+        "android_client_info": {
+          "package_name": "com.example.koodiarana_chauffeur"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-w1iryBI1YqV2OWUmcOSntyz1QzCM5ek"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
