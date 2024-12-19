@@ -4,6 +4,7 @@ import 'package:koodiarana_chauffeur/providers/app_manager.dart';
 import 'package:koodiarana_chauffeur/providers/navigation_manager.dart';
 import 'package:koodiarana_chauffeur/screens/composants/parameters.dart';
 import 'package:koodiarana_chauffeur/screens/composants/rating.dart';
+import 'package:koodiarana_chauffeur/screens/pages/historiques.dart';
 import 'package:koodiarana_chauffeur/screens/pages/mention_legale.dart';
 import 'package:koodiarana_chauffeur/screens/pages/payement.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +22,7 @@ class Page2 extends StatefulWidget {
 class _Page1State extends State<Page2> {
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User>(context, listen: false);
     final theme = Theme.of(context);
     final textTheme = Theme.of(context).textTheme;
     return Scaffold(
@@ -42,17 +44,15 @@ class _Page1State extends State<Page2> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Expanded(
-                            child: Text("Brice Privat",
-
-                                //       user!.displayName.toString(),
+                            child: Text(user.displayName.toString(),
                                 style: textTheme.titleLarge),
                           ),
                           //Icon(Icons.person, size: 50)
                           ShadAvatar(
                             placeholder: Image.asset(
-                              "asset/Logo_koodiarana.png",
+                              "assets/Logo_koodiarana.png",
                             ),
-                            'https://i.pravatar.cc/160',
+                            user.photoURL!,
                             size: Size(65, 65),
                           )
                         ],
@@ -75,7 +75,8 @@ class _Page1State extends State<Page2> {
                         icon: Icon(Icons.help),
                         descri: "Aide",
                         onTap: () {
-                          Provider.of<AppManager>(context,listen: false).reFirstLogin();
+                          Provider.of<AppManager>(context, listen: false)
+                              .reFirstLogin();
                         },
                       ),
                       Parameters(
@@ -112,6 +113,12 @@ class _Page1State extends State<Page2> {
                     ),
                   ),
                   ListTile(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Historiques()));
+                    },
                     leading: const Icon(Icons.history),
                     title: const Text(
                       'Historiques',
