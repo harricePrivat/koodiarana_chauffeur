@@ -112,9 +112,9 @@ class _Page1State extends State<Page2> {
                     ),
                   ),
                   ListTile(
-                    leading: const Icon(Icons.badge),
+                    leading: const Icon(Icons.history),
                     title: const Text(
-                      'Mon compte professionnel',
+                      'Historiques',
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),

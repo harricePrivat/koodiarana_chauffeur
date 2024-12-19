@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:koodiarana_chauffeur/providers/navigation_manager.dart';
+import 'package:koodiarana_chauffeur/screens/composants/notif.dart';
 import 'package:koodiarana_chauffeur/screens/pages/page1.dart';
 import 'package:koodiarana_chauffeur/screens/pages/page2.dart';
 import 'package:koodiarana_chauffeur/services/connectivity.dart';
@@ -33,6 +34,7 @@ class _AccueilState extends State<Accueil> {
             tabManager.tabValue == 0 ? "Activités" : "Comptes",
             style: theme.textTheme.displayLarge,
           ),
+          actions: [Notif()],
         ),
         body: listPages[tabManager.tabValue],
         bottomNavigationBar: BottomNavigationBar(

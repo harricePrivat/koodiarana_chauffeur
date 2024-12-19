@@ -12,15 +12,15 @@ class AppTheme {
       color: Colors.grey,
       iconTheme: const IconThemeData(color: Colors.white),
       titleTextStyle: GoogleFonts.lato(
-        fontSize: 27.0,
-        fontWeight: FontWeight.bold,
+        fontSize: 25.0,
+        fontWeight: FontWeight.w600,
         color: Colors.white,
       ),
     ),
     textTheme: TextTheme(
         bodyLarge: GoogleFonts.openSans(
-          fontSize: 14.0,
-          fontWeight: FontWeight.w700,
+          fontSize: 23.0,
+          fontWeight: FontWeight.w300,
           color: Colors.black,
         ),
         displayLarge: GoogleFonts.openSans(
@@ -49,8 +49,8 @@ class AppTheme {
           color: Colors.black,
         ),
         titleSmall: GoogleFonts.openSans(
-            fontSize: 13,
-            fontWeight: FontWeight.w100,
+            fontSize: 15,
+            fontWeight: FontWeight.w300,
             fontStyle: FontStyle.italic,
             color: Colors.grey)),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
@@ -72,14 +72,14 @@ class AppTheme {
       color: Colors.black,
       iconTheme: const IconThemeData(color: Colors.white),
       titleTextStyle: GoogleFonts.lato(
-        fontSize: 27.0,
-        fontWeight: FontWeight.bold,
+        fontSize: 25.0,
+        fontWeight: FontWeight.w600,
         color: Colors.white,
       ),
     ),
     textTheme: TextTheme(
         bodyLarge: GoogleFonts.openSans(
-          fontSize: 14.0,
+          fontSize: 23.0,
           fontWeight: FontWeight.w700,
           color: Colors.white,
         ),
@@ -109,8 +109,8 @@ class AppTheme {
           color: Colors.white,
         ),
         titleSmall: GoogleFonts.openSans(
-            fontSize: 13,
-            fontWeight: FontWeight.w100,
+            fontSize: 15,
+            fontWeight: FontWeight.w300,
             fontStyle: FontStyle.italic,
             color: Colors.grey)),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(

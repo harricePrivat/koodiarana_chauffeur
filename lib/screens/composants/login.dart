@@ -6,6 +6,7 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:koodiarana_chauffeur/bloc/signInGoogle/sign_in_google_bloc.dart';
 import 'package:koodiarana_chauffeur/bloc/signInGoogle/sign_in_google_event.dart';
 import 'package:koodiarana_chauffeur/screens/composants/button_google.dart';
+import 'package:koodiarana_chauffeur/screens/pages/forgot_password.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
 import '../composants/password_input.dart';
@@ -101,6 +102,12 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 ShadButton.link(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ForgotPassword()));
+                  },
                   child: Text(
                     "Mot de passe oublié?",
                     textAlign: TextAlign.start,
