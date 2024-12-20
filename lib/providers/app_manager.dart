@@ -13,9 +13,7 @@ class AppManager extends ChangeNotifier {
   }
 
   void initializeApp() async {
-    print("J'initialise App Koodiarana");
     firstLogin = await AppCache().getFirstLogin();
-    print("Voici mon firstLogin $firstLogin");
     notifyListeners();
   }
 

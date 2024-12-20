@@ -34,7 +34,7 @@ class _AccueilState extends State<Accueil> {
             tabManager.tabValue == 0 ? "Activités" : "Comptes",
             style: theme.textTheme.displayLarge,
           ),
-          actions: [Notif()],
+          actions: [if (tabManager.tabValue == 0) Notif()],
         ),
         body: listPages[tabManager.tabValue],
         bottomNavigationBar: BottomNavigationBar(
