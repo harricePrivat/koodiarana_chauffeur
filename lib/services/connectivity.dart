@@ -28,7 +28,8 @@ class ConnectivityServices {
           )
         ],
       );
-    } else {
+    } 
+    else {
       return Row(
         spacing: 16,
         children: [

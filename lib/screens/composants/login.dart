@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:koodiarana_chauffeur/bloc/signInGoogle/sign_in_google_bloc.dart';
 import 'package:koodiarana_chauffeur/bloc/signInGoogle/sign_in_google_event.dart';
 import 'package:koodiarana_chauffeur/screens/composants/button_google.dart';
 import 'package:koodiarana_chauffeur/screens/pages/forgot_password.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
-import '../composants/password_input.dart';
+import 'password_input.dart';
 
 // ignore: must_be_immutable
 class Login extends StatefulWidget {
@@ -35,7 +33,8 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
+    final formKey = GlobalKey<ShadFormState>();
+    // final textTheme = Theme.of(context).textTheme;
     final theme = Theme.of(context);
     return Padding(
         padding: EdgeInsets.all(16.00),
@@ -53,13 +52,18 @@ class _LoginState extends State<Login> {
                     //    style: style,
                   ),
                   description: Text(
-                      "Se connecter avec votre compte chauffeur Koodiarana"),
+                      "Se connecter avec votre compte Chauffeur Koodiarana"),
                   footer: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       ShadButton(
                         child: const Text('Se connecter'),
-                        onPressed: () async {},
+                        onPressed: () async {
+                          if (formKey.currentState!.saveAndValidate()) {
+                            print(
+                                'validation succeeded with ${formKey.currentState!.value}');
+                          }
+                        },
                       ),
                       ShadButton.link(
                           onPressed: () {},
@@ -69,36 +73,37 @@ class _LoginState extends State<Login> {
                           ))
                     ],
                   ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const SizedBox(height: 14),
-                      FormBuilderTextField(
-                        controller: mailNum,
-                        name: "mailNum",
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        style: TextStyle(color: theme.primaryColor),
-                        decoration: InputDecoration(
-                          label: Text('Mail ou Numero de telephone',
-                              style: textTheme.titleSmall),
-                          border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(8.00)),
+                  child: ShadForm(
+                    key: formKey,
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 350),
+                      child: Column(
+                        spacing: 16,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SizedBox(),
+                          ShadInputFormField(
+                            id: 'username',
+                            label: const Text('adresse ou numéro de téléphone'),
+                            placeholder: const Text(
+                                'Entrez votre email ou numero de telephone'),
+                            // description:
+                            //     const Text('This is your public display name.'),
+                            validator: (v) {
+                              if (v.isEmpty) {
+                                return 'ce champ est obligatoire';
+                              }
+                              return null;
+                            },
                           ),
-                          hintText: "...@gmail.com ou +261....",
-                        ),
-                        validator: FormBuilderValidators.compose([
-                          FormBuilderValidators.required(
-                              errorText: "Ce champ  est obligatoire"),
-                        ]),
+                          PasswordInput(
+                              rePassword: false,
+                              controller: mailNum,
+                              color: theme.primaryColor)
+                        ],
                       ),
-                      const SizedBox(height: 16),
-                      PasswordInput(
-                        controller: password,
-                        color: theme.primaryColor,
-                      ),
-                      const SizedBox(height: 16),
-                    ],
+                    ),
                   ),
                 ),
                 ShadButton.link(
@@ -126,3 +131,37 @@ class _LoginState extends State<Login> {
         ));
   }
 }
+
+
+
+//  Column(
+//                     mainAxisSize: MainAxisSize.min,
+//                     children: [
+//                       const SizedBox(height: 14),
+//                       FormBuilderTextField(
+//                         controller: mailNum,
+//                         name: "mailNum",
+//                         autovalidateMode: AutovalidateMode.onUserInteraction,
+//                         style: TextStyle(color: theme.primaryColor),
+//                         decoration: InputDecoration(
+//                           label: Text('Mail ou Numero de telephone',
+//                               style: textTheme.titleSmall),
+//                           border: OutlineInputBorder(
+//                             borderRadius:
+//                                 BorderRadius.all(Radius.circular(8.00)),
+//                           ),
+//                           hintText: "...@gmail.com ou +261....",
+//                         ),
+//                         validator: FormBuilderValidators.compose([
+//                           FormBuilderValidators.required(
+//                               errorText: "Ce champ  est obligatoire"),
+//                         ]),
+//                       ),
+//                       const SizedBox(height: 16),
+//                       PasswordInput(
+//                         controller: password,
+//                         color: theme.primaryColor,
+//                       ),
+//                       const SizedBox(height: 16),
+//                     ],
+//                   ),
