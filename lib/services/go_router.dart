@@ -1,7 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
 import 'package:koodiarana_chauffeur/providers/app_manager.dart';
-import 'package:koodiarana_chauffeur/providers/navigation_manager.dart';
 import 'package:koodiarana_chauffeur/screens/pages/accueil.dart';
 import 'package:koodiarana_chauffeur/screens/pages/first_login.dart';
 import 'package:koodiarana_chauffeur/screens/pages/page_login.dart';
@@ -16,11 +14,9 @@ class GoRouters {
       GoRoute(path: '/accueil', builder: (context, state) => Accueil()),
     ],
     redirect: (context, state) {
-      final user = Provider.of<User?>(context);
-      final firstLogin =
-          Provider.of<AppManager>(context).getLogin;
+      final user = Provider.of<AppManager>(context).getUsers;
+      final firstLogin = Provider.of<AppManager>(context).getLogin;
       if (user == null) {
-        //  Provider.of<NavigationManager>(context,listen: false).goToFirst();
         return '/login';
       } else {
         if (firstLogin) {

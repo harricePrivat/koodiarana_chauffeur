@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:koodiarana_chauffeur/bloc/change_password/change_password_bloc.dart';
+import 'package:koodiarana_chauffeur/bloc/get_otp/get_otp_bloc.dart';
 import 'package:koodiarana_chauffeur/bloc/signInGoogle/sign_in_google_bloc.dart';
+import 'package:koodiarana_chauffeur/bloc/test_otp/test_otp_bloc.dart';
+import 'package:koodiarana_chauffeur/bloc/to_login/to_login_bloc.dart';
 import 'package:koodiarana_chauffeur/providers/app_manager.dart';
 import 'package:koodiarana_chauffeur/providers/navigation_manager.dart';
 import 'package:koodiarana_chauffeur/screens/pages/splash_screen.dart';
@@ -28,7 +32,13 @@ void main() async {
             ChangeNotifierProvider(create: (context) => AppManager())
           ],
           child: MultiBlocProvider(
-            providers: [BlocProvider(create: (context) => SignInGoogleBloc())],
+            providers: [
+              BlocProvider(create: (context) => SignInGoogleBloc()),
+              BlocProvider(create: (context) => ToLoginBloc()),
+              BlocProvider(create: (contet) => GetOtpBloc()),
+              BlocProvider(create: (contet) => TestOtpBloc()),
+              BlocProvider(create: (context) => ChangePasswordBloc())
+            ],
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
               home: SplashScreen(),

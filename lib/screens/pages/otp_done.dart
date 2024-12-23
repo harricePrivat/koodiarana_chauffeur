@@ -1,49 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:koodiarana_chauffeur/bloc/get_otp/get_otp_bloc.dart';
+import 'package:koodiarana_chauffeur/bloc/test_otp/test_otp_bloc.dart';
+import 'package:koodiarana_chauffeur/screens/pages/change_password.dart';
 import 'package:koodiarana_chauffeur/screens/pages/loading.dart';
-import 'package:koodiarana_chauffeur/screens/pages/otp_done.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
-class ForgotPassword extends StatefulWidget {
-  const ForgotPassword({super.key});
+// ignore: must_be_immutable
+class OtpDone extends StatefulWidget {
+  String mail;
+  OtpDone({super.key, required this.mail});
 
   @override
-  State<ForgotPassword> createState() => _ForgotPasswordState();
+  State<OtpDone> createState() => _OtpDoneState();
 }
 
-class _ForgotPasswordState extends State<ForgotPassword> {
+class _OtpDoneState extends State<OtpDone> {
   final formKey = GlobalKey<ShadFormState>();
-  TextEditingController mailNum = TextEditingController();
+  TextEditingController otp = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text("Recupération de compte")),
-        body: BlocListener<GetOtpBloc, GetOtpState>(
+        appBar: AppBar(
+          title: Text("OTP"),
+        ),
+        body: BlocListener<TestOtpBloc, TestOtpState>(
           listener: (context, state) {
-            if (state is GetOtpDone) {
-              Fluttertoast.showToast(
-                  msg: "Un email de récupération a été envoyé",
-                  toastLength: Toast.LENGTH_LONG);
+            if (state is TestOtpDone) {
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => OtpDone(
-                            mail: state.mail!,
+                      builder: (context) => ChangePassword(
+                            mail: widget.mail,
                           )));
             }
-            if (state is GetOtpError) {
+            if (state is TestOtpError) {
               showDialog(
                   context: context,
                   builder: (context) => Padding(
                         padding: EdgeInsets.all(16),
                         child: ShadDialog.alert(
-                          title: Text(state.titre!),
+                          title: Text("Erreur OTP"),
                           description: Padding(
                             padding: const EdgeInsets.only(bottom: 8),
                             child: Text(
-                              state.message!,
+                              state.message,
                             ),
                           ),
                           actions: [
@@ -57,8 +57,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
             }
           },
           child:
-              BlocBuilder<GetOtpBloc, GetOtpState>(builder: (context, state) {
-            if (state is GetOtpLoading) {
+              BlocBuilder<TestOtpBloc, TestOtpState>(builder: (context, state) {
+            if (state is TestOtpLoading) {
               return Loading();
             }
             return Center(
@@ -68,11 +68,11 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 child: ShadCard(
                     backgroundColor: Colors.transparent,
                     title: Text(
-                      "Mot de passe oulbié",
+                      "OTP de récupération",
                       //    style: style,
                     ),
                     description: Text(
-                        "Entrez votre mail ou numéro de téléphone pour récupérer votre compte"),
+                        "Veuillez tapez ici l'OTP de récupération de votre compte"),
                     footer: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -80,9 +80,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                           child: const Text('Récuperer'),
                           onPressed: () async {
                             if (formKey.currentState!.saveAndValidate()) {
-                              context
-                                  .read<GetOtpBloc>()
-                                  .add(OnSearchMailEvent(mail: mailNum.text));
+                              context.read<TestOtpBloc>().add(OnSubmitOtp(
+                                  otp: otp.text, mail: widget.mail));
                             }
                           },
                         ),
@@ -96,15 +95,21 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         ShadForm(
                           key: formKey,
                           child: ShadInputFormField(
-                            controller: mailNum,
-                            id: 'username',
-                            placeholder: const Text(
-                                'Entrez votre email ou numero de telephone'),
+                            keyboardType: TextInputType.numberWithOptions(),
+                            controller: otp,
+                            id: 'otp',
+                            placeholder: const Text('OTP de récupération'),
                             // description:
                             //     const Text('This is your public display name.'),
                             validator: (v) {
                               if (v.isEmpty) {
                                 return 'ce champ est obligatoire';
+                              }
+                              if (v.length < 6) {
+                                return 'nombre insuffisant';
+                              }
+                              if (v.length > 6) {
+                                return 'nombre trop élévé';
                               }
                               return null;
                             },

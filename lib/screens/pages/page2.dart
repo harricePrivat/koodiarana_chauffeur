@@ -150,8 +150,10 @@ class _Page1State extends State<Page2> {
                   ),
                   ShadButton(
                     onPressed: () async {
-                      await FirebaseAuth.instance.signOut();
-                      Provider.of<NavigationManager>(context, listen: false).goToFirst();
+                      Provider.of<AppManager>(context, listen: false)
+                          .disconnected();
+                      Provider.of<NavigationManager>(context, listen: false)
+                          .goToFirst();
                     },
                     backgroundColor: Colors.grey,
                     decoration: ShadDecoration(color: Colors.grey),

@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:koodiarana_chauffeur/models/user.dart';
 
 class SignInGoogleState extends Equatable {
   @override
@@ -9,7 +10,14 @@ class GoogleConnectionLoading extends SignInGoogleState {}
 
 class GoogleConnectionInitial extends SignInGoogleState {}
 
-class GoogleConnectionDone extends SignInGoogleState {}
+// ignore: must_be_immutable
+class GoogleConnectionDone extends SignInGoogleState {
+  Users? user;
+  GoogleConnectionDone({required this.user});
+
+  @override
+  List<Object> get props => [user!];
+}
 
 // ignore: must_be_immutable
 class GoogleConnectionError extends SignInGoogleState {
