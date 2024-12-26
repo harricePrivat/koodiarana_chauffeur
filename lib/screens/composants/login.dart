@@ -98,6 +98,8 @@ class _LoginState extends State<Login> {
                               context.read<ToLoginBloc>().add(OnSubmitLogin(
                                   mailNum: mailNum.text,
                                   password: password.text));
+                              mailNum.clear();
+                              password.clear();
                             }
                           },
                         ),
