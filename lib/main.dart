@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:koodiarana_chauffeur/bloc/ajout_utilisateur/ajout_utilisateur_bloc.dart';
 import 'package:koodiarana_chauffeur/bloc/change_password/change_password_bloc.dart';
 import 'package:koodiarana_chauffeur/bloc/get_otp/get_otp_bloc.dart';
 import 'package:koodiarana_chauffeur/bloc/signInGoogle/sign_in_google_bloc.dart';
@@ -37,7 +38,10 @@ void main() async {
               BlocProvider(create: (context) => ToLoginBloc()),
               BlocProvider(create: (contet) => GetOtpBloc()),
               BlocProvider(create: (contet) => TestOtpBloc()),
-              BlocProvider(create: (context) => ChangePasswordBloc())
+              BlocProvider(create: (context) => ChangePasswordBloc()),
+              BlocProvider(
+                create: (context) => AjoutUtilisateurBloc(),
+              )
             ],
             child: MaterialApp(
               debugShowCheckedModeBanner: false,

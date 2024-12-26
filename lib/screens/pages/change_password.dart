@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:koodiarana_chauffeur/bloc/change_password/change_password_bloc.dart';
 import 'package:koodiarana_chauffeur/screens/composants/password_input.dart';
 import 'package:koodiarana_chauffeur/screens/pages/loading.dart';
@@ -27,6 +28,7 @@ class _ChangePassword extends State<ChangePassword> {
         body: BlocListener<ChangePasswordBloc, ChangePasswordState>(
           listener: (context, state) {
             if (state is ChangePasswordDone) {
+              Fluttertoast.showToast(msg: "Modification réussie");
               Navigator.pop(context);
             }
             if (state is ChangePasswordError) {

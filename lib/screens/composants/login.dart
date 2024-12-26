@@ -83,11 +83,11 @@ class _LoginState extends State<Login> {
                   ShadCard(
                     backgroundColor: Colors.transparent,
                     title: Text(
-                      "Client",
+                      "Chauffeur",
                       //    style: style,
                     ),
                     description: Text(
-                        "Se connecter avec votre compte client Koodiarana"),
+                        "Se connecter avec votre compte chauffeur Koodiarana"),
                     footer: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
