@@ -7,7 +7,6 @@ import 'package:koodiarana_chauffeur/screens/composants/notif.dart';
 import 'package:koodiarana_chauffeur/screens/pages/page1.dart';
 import 'package:koodiarana_chauffeur/screens/pages/page2.dart';
 import 'package:koodiarana_chauffeur/services/connectivity.dart';
-import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
 import 'dart:convert';
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -22,7 +21,7 @@ class Accueil extends StatefulWidget {
 class _AccueilState extends State<Accueil> {
   List<Widget> listPages = [Page1(), Page2()];
   Position? currentPosition;
-  LatLng? _currentPosition;
+  // LatLng? _currentPosition;
 
   final ws =
       WebSocketChannel.connect(Uri.parse("ws://192.168.43.224:9999/position"));
@@ -54,7 +53,7 @@ class _AccueilState extends State<Accueil> {
 
     Position position = await Geolocator.getCurrentPosition();
     setState(() {
-      _currentPosition = LatLng(position.latitude, position.longitude);
+      currentPosition = position;
     });
   }
 
@@ -69,9 +68,7 @@ class _AccueilState extends State<Accueil> {
         "longitude": currentPosition!.longitude.toString(),
         "latitude": currentPosition!.latitude.toString()
       };
-      print(data);
       ws.sink.add(jsonEncode(data));
-      print(data);
     });
   }
 

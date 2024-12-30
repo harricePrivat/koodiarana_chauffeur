@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:koodiarana_chauffeur/screens/composants/notif_composant.dart';
 
 class NotifPages extends StatefulWidget {
   const NotifPages({super.key});
@@ -20,7 +21,12 @@ class _NotifPagesState extends State<NotifPages> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [Text("Aucune notification")],
+            children: [
+              NotifComposant(
+                title: "Hianatra",
+                subTitle: "a 17h a Ankatso",
+              )
+            ],
           ),
         ),
       ),
