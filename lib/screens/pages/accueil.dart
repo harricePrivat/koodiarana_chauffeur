@@ -101,6 +101,7 @@ class _AccueilState extends State<Accueil> {
                 ? kBottomNavigationBarHeight
                 : 0,
             child: BottomNavigationBar(
+            
               currentIndex: tabManager.tabValue,
               onTap: (index) {
                 tabManager.changeTab(index);
