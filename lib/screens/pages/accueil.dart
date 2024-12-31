@@ -3,6 +3,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:koodiarana_chauffeur/models/user.dart';
 import 'package:koodiarana_chauffeur/providers/app_manager.dart';
 import 'package:koodiarana_chauffeur/providers/navigation_manager.dart';
+import 'package:koodiarana_chauffeur/providers/scroll_manager.dart';
 import 'package:koodiarana_chauffeur/screens/composants/notif.dart';
 import 'package:koodiarana_chauffeur/screens/pages/page1.dart';
 import 'package:koodiarana_chauffeur/screens/pages/page2.dart';
@@ -93,21 +94,24 @@ class _AccueilState extends State<Accueil> {
           actions: [if (tabManager.tabValue == 0) Notif()],
         ),
         body: listPages[tabManager.tabValue],
-        bottomNavigationBar: BottomNavigationBar(
-            showSelectedLabels: false,
-            selectedIconTheme:
-                IconThemeData(size: 40, color: theme.primaryColor),
-            unselectedItemColor: theme.primaryColor,
-            unselectedLabelStyle: TextStyle(color: theme.primaryColor),
-            currentIndex: tabManager.tabValue,
-            onTap: (value) {
-              tabManager.changeTab(value);
-            },
-            items: const [
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.motorcycle), label: 'Acitivite'),
-              BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Compte')
-            ]),
+        bottomNavigationBar: AnimatedContainer(
+            duration: Duration(milliseconds: 300),
+            height: Provider.of<ScrollManager>(context, listen: true)
+                    .isVisibleBottomBar
+                ? kBottomNavigationBarHeight
+                : 0,
+            child: BottomNavigationBar(
+              currentIndex: tabManager.tabValue,
+              onTap: (index) {
+                tabManager.changeTab(index);
+              },
+              items: [
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.home), label: "Accueil"),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.account_circle), label: "Comptes")
+              ],
+            )),
       );
     });
   }

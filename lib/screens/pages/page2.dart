@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:koodiarana_chauffeur/providers/app_manager.dart';
 import 'package:koodiarana_chauffeur/providers/navigation_manager.dart';
 import 'package:koodiarana_chauffeur/screens/composants/parameters.dart';
@@ -20,6 +21,28 @@ class Page2 extends StatefulWidget {
 }
 
 class _Page1State extends State<Page2> {
+  late ScrollController _scrollController;
+  bool isVisible = true;
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+    _scrollController.addListener(() {
+      if (_scrollController.position.userScrollDirection ==
+          ScrollDirection.reverse) {
+        setState(() {
+          isVisible = false;
+        });
+      }
+      if (_scrollController.position.userScrollDirection ==
+          ScrollDirection.forward) {
+        setState(() {
+          isVisible = true;
+        });
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // final user = Provider.of<User>(context, listen: false);
@@ -32,36 +55,40 @@ class _Page1State extends State<Page2> {
           shape: const RoundedRectangleBorder(
               borderRadius:
                   BorderRadius.vertical(bottom: Radius.circular(30.00))),
-          bottom: PreferredSize(
-              preferredSize: const Size(double.infinity, 65),
-              child: Padding(
-                  padding: const EdgeInsets.only(
-                      bottom: 16.00, left: 16.00, right: 16.00),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          bottom: isVisible
+              ? PreferredSize(
+                  preferredSize: const Size(double.infinity, 65),
+                  child: Padding(
+                      padding: const EdgeInsets.only(
+                          bottom: 16.00, left: 16.00, right: 16.00),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Expanded(
-                            child: Text(user!.nom, style: textTheme.titleLarge),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: Text(user!.nom,
+                                    style: textTheme.titleLarge),
+                              ),
+                              //Icon(Icons.person, size: 50)
+                              ShadAvatar(
+                                placeholder: Image.asset(
+                                  "assets/Logo_koodiarana.png",
+                                ),
+                                "assets/Logo_koodiarana.png",
+                                size: Size(65, 65),
+                              )
+                            ],
                           ),
-                          //Icon(Icons.person, size: 50)
-                          ShadAvatar(
-                            placeholder: Image.asset(
-                              "assets/Logo_koodiarana.png",
-                            ),
-                            "assets/Logo_koodiarana.png",
-                            size: Size(65, 65),
-                          )
+                          Rating()
                         ],
-                      ),
-                      Rating()
-                    ],
-                  ))),
+                      )))
+              : PreferredSize(preferredSize: Size(0, 0), child: SizedBox()),
         ),
         body: ListView(
+          //  controller: _scrollController,
           children: [
             Padding(
               padding: EdgeInsets.all(16.00),

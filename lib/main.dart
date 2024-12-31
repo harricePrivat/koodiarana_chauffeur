@@ -9,6 +9,7 @@ import 'package:koodiarana_chauffeur/bloc/test_otp/test_otp_bloc.dart';
 import 'package:koodiarana_chauffeur/bloc/to_login/to_login_bloc.dart';
 import 'package:koodiarana_chauffeur/providers/app_manager.dart';
 import 'package:koodiarana_chauffeur/providers/navigation_manager.dart';
+import 'package:koodiarana_chauffeur/providers/scroll_manager.dart';
 import 'package:koodiarana_chauffeur/screens/pages/splash_screen.dart';
 import 'package:koodiarana_chauffeur/services/authentification.dart';
 import 'package:koodiarana_chauffeur/services/go_router.dart';
@@ -43,6 +44,7 @@ void main() async {
           providers: [
             StreamProvider.value(
                 value: AuthService().userConnection, initialData: null),
+            ChangeNotifierProvider(create: (context) => ScrollManager()),
             ChangeNotifierProvider(create: (context) => NavigationManager()),
             ChangeNotifierProvider(create: (context) => AppManager())
           ],
