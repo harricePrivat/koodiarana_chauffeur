@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,8 +31,15 @@ void callbackDispatcher() {
   });
 }
 
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  print("Notification test");
+  // print("Notification reçue en arrière-plan: ${message.notification?.title}");
+}
+
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
   Workmanager().registerPeriodicTask("taskLocation", "sendLocation",
       frequency: Duration(minutes: 15));
