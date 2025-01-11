@@ -61,16 +61,20 @@ class _AccueilState extends State<Accueil> {
             builder: (context) => Padding(
                   padding: EdgeInsets.all(16),
                   child: ShadDialog.alert(
-                    title: Text("Créer avec succès !!"),
+                    title: Text("Client"),
                     description: Padding(
                       padding: const EdgeInsets.only(bottom: 8),
                       child: Text(
-                        "Un mail de validation a été envoyé",
+                        "Une client est disponible a Mahamasina a 18h",
                       ),
                     ),
                     actions: [
                       ShadButton(
-                        child: const Text('OK'),
+                        child: const Text('Prendre'),
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                      ShadButton(
+                        child: const Text('Laisser'),
                         onPressed: () => Navigator.pop(context),
                       ),
                     ],
