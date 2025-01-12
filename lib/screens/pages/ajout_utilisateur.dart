@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:koodiarana_chauffeur/bloc/ajout_utilisateur/ajout_utilisateur_bloc.dart';
 import 'package:koodiarana_chauffeur/models/user.dart';
+import 'package:koodiarana_chauffeur/screens/composants/input_cin.dart';
 import 'package:koodiarana_chauffeur/screens/composants/input_date.dart';
 import 'package:koodiarana_chauffeur/screens/composants/input_form.dart';
 import 'package:koodiarana_chauffeur/screens/composants/input_num.dart';
 import 'package:koodiarana_chauffeur/screens/composants/password_input.dart';
+import 'package:koodiarana_chauffeur/screens/composants/pick_images.dart';
 import 'package:koodiarana_chauffeur/screens/pages/loading.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
@@ -25,6 +28,8 @@ class _AjoutUtilisateurState extends State<AjoutUtilisateur> {
   TextEditingController mail = TextEditingController();
   TextEditingController password = TextEditingController();
   TextEditingController rePassword = TextEditingController();
+  TextEditingController cin = TextEditingController();
+  XFile ?images;
   DateTime pickedDate = DateTime.now();
 
   @override
@@ -93,6 +98,11 @@ class _AjoutUtilisateurState extends State<AjoutUtilisateur> {
                             });
                           },
                         ),
+                        InputCin(
+                          controller: cin,
+                          label: "votre cin *",
+                          placeholder: "entrez votre cin",
+                        ),
                         ShadInputFormField(
                           label: Text("votre email *"),
                           controller: mail,
@@ -115,6 +125,7 @@ class _AjoutUtilisateurState extends State<AjoutUtilisateur> {
                           },
                         ),
                         InputNum(controller: num),
+                        PickImages(images: images, onPicked: () {}, name: "Ajouter le photo de votre CIN"),
                         PasswordInput(
                             rePassword: false,
                             controller: password,
@@ -138,12 +149,12 @@ class _AjoutUtilisateurState extends State<AjoutUtilisateur> {
                                                 pickedDate.toString(),
                                             email: mail.text),
                                         password: password.text));
-                                clearForm();
                               } else {
                                 Fluttertoast.showToast(
                                     msg:
                                         "Veuillez vérifier votre mot de passe");
                               }
+                              clearForm();
                             }
                           },
                           child: Text("Créer mon compte"),
