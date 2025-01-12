@@ -29,7 +29,9 @@ class _AjoutUtilisateurState extends State<AjoutUtilisateur> {
   TextEditingController password = TextEditingController();
   TextEditingController rePassword = TextEditingController();
   TextEditingController cin = TextEditingController();
-  XFile ?images;
+  XFile? rectoCIN;
+  XFile? versoCIN;
+
   DateTime pickedDate = DateTime.now();
 
   @override
@@ -125,7 +127,94 @@ class _AjoutUtilisateurState extends State<AjoutUtilisateur> {
                           },
                         ),
                         InputNum(controller: num),
-                        PickImages(images: images, onPicked: () {}, name: "Ajouter le photo de votre CIN"),
+                        PickImages(
+                            images: rectoCIN,
+                            onPicked: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) => Padding(
+                                        padding: EdgeInsets.all(16),
+                                        child: ShadDialog.alert(
+                                          title: Text("Choisir la source"),
+                                          description: Padding(
+                                            padding: const EdgeInsets.only(
+                                                bottom: 8),
+                                            child: Text(
+                                              "Vous devez choisir si la source est la galerie ou la camera",
+                                            ),
+                                          ),
+                                          actions: [
+                                            ShadButton(
+                                                child: const Text('Galerie'),
+                                                onPressed: () async {
+                                                  final picker = ImagePicker();
+                                                  rectoCIN =
+                                                      await picker.pickImage(
+                                                          source: ImageSource
+                                                              .gallery);
+                                                  setState(() {});
+                                                  Navigator.pop(context);
+                                                }),
+                                            ShadButton(
+                                                child: const Text('Camera'),
+                                                onPressed: () async {
+                                                  final picker = ImagePicker();
+                                                  rectoCIN =
+                                                      await picker.pickImage(
+                                                          source: ImageSource
+                                                              .camera);
+                                                  setState(() {});
+                                                  Navigator.pop(context);
+                                                }),
+                                          ],
+                                        ),
+                                      ));
+                            },
+                            name: "Ajouter la photo de votre CIN (recto)"),
+                        PickImages(
+                            images: versoCIN,
+                            onPicked: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) => Padding(
+                                        padding: EdgeInsets.all(16),
+                                        child: ShadDialog.alert(
+                                          title: Text("Choisir la source"),
+                                          description: Padding(
+                                            padding: const EdgeInsets.only(
+                                                bottom: 8),
+                                            child: Text(
+                                              "Vous devez choisir si la source est la galerie ou la camera",
+                                            ),
+                                          ),
+                                          actions: [
+                                            ShadButton(
+                                                child: const Text('Galerie'),
+                                                onPressed: () async {
+                                                  final picker = ImagePicker();
+                                                  versoCIN =
+                                                      await picker.pickImage(
+                                                          source: ImageSource
+                                                              .gallery);
+                                                  setState(() {});
+                                                  Navigator.pop(context);
+                                                }),
+                                            ShadButton(
+                                                child: const Text('Camera'),
+                                                onPressed: () async {
+                                                  final picker = ImagePicker();
+                                                  rectoCIN =
+                                                      await picker.pickImage(
+                                                          source: ImageSource
+                                                              .camera);
+                                                  setState(() {});
+                                                  Navigator.pop(context);
+                                                }),
+                                          ],
+                                        ),
+                                      ));
+                            },
+                            name: "Ajouter la photo de votre CIN (verso)"),
                         PasswordInput(
                             rePassword: false,
                             controller: password,

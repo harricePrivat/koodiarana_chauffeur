@@ -62,7 +62,7 @@ class _PickImagesState extends State<PickImages> {
                   children: [
                     const Icon(
                       Icons.error_outline,
-                      color: Colors.red,
+                      color: Colors.black,
                     ),
                     const SizedBox(
                       width: 5,
