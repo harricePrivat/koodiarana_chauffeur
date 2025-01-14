@@ -93,6 +93,7 @@ class _AjoutUtilisateurState extends State<AjoutUtilisateur> {
                             placeholder: "entrez votre prénom",
                             controller: prenom),
                         InputDate(
+                          label: "entrez vote date de naissance * ",
                           datePicker: pickedDate,
                           onDateChanged: (value) {
                             setState(() {
@@ -105,27 +106,7 @@ class _AjoutUtilisateurState extends State<AjoutUtilisateur> {
                           label: "votre cin *",
                           placeholder: "entrez votre cin",
                         ),
-                        ShadInputFormField(
-                          label: Text("votre email *"),
-                          controller: mail,
-                          placeholder: Text('entrez votre mail'),
-                          keyboardType: TextInputType.emailAddress,
-                          decoration: ShadDecoration(
-                              border: ShadBorder(
-                            top: BorderSide(color: Colors.grey),
-                            bottom: BorderSide(color: Colors.grey),
-                            left: BorderSide(color: Colors.grey),
-                            right: BorderSide(color: Colors.grey),
-                          )),
-                          validator: (v) {
-                            if (v.isEmpty) {
-                              return 'ce champ est obligatoire';
-                            } else if (!v.contains('@') || !v.contains('.')) {
-                              return 'veuillez entrez un mail valide';
-                            }
-                            return null;
-                          },
-                        ),
+                       
                         InputNum(controller: num),
                         PickImages(
                             images: rectoCIN,

@@ -7,6 +7,7 @@ import 'package:koodiarana_chauffeur/screens/composants/parameters.dart';
 import 'package:koodiarana_chauffeur/screens/composants/rating.dart';
 import 'package:koodiarana_chauffeur/screens/pages/historiques.dart';
 import 'package:koodiarana_chauffeur/screens/pages/mention_legale.dart';
+import 'package:koodiarana_chauffeur/screens/pages/my_account.dart';
 import 'package:koodiarana_chauffeur/screens/pages/payement.dart';
 import 'package:provider/provider.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
@@ -47,7 +48,7 @@ class _Page1State extends State<Page2> {
   Widget build(BuildContext context) {
     // final user = Provider.of<User>(context, listen: false);
     final user = Provider.of<AppManager>(context, listen: false).getUsers;
-    final theme = Theme.of(context);
+    //final theme = Theme.of(context);
     final textTheme = Theme.of(context).textTheme;
     return Scaffold(
         appBar: AppBar(
@@ -168,6 +169,10 @@ class _Page1State extends State<Page2> {
                     ),
                   ),
                   ListTile(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => MyAccount()));
+                    },
                     leading: const Icon(Icons.person),
                     title: const Text(
                       'Mon compte Koodiarana',

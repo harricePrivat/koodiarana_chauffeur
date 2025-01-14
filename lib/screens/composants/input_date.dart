@@ -5,8 +5,8 @@ import 'package:shadcn_ui/shadcn_ui.dart';
 class InputDate extends StatelessWidget {
   DateTime datePicker;
   final ValueChanged<DateTime?> onDateChanged;
-
-  InputDate({super.key, required this.datePicker, required this.onDateChanged});
+  String ?label;
+  InputDate({super.key, this.label, required this.datePicker, required this.onDateChanged});
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? selectedDate = await showDatePicker(
@@ -25,7 +25,7 @@ class InputDate extends StatelessWidget {
     return ShadInputFormField(
       onPressed: () => _selectDate(context),
       readOnly: true,
-      label: Text("entrez votre date de naissance *"),
+      label: Text(label!),
       placeholder: Text(datePicker.toString()),
       decoration: ShadDecoration(
           border: ShadBorder(

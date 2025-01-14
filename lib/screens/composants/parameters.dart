@@ -15,7 +15,7 @@ class Parameters extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: Colors.grey,
+          color: const Color.fromARGB(255, 128, 127, 127),
         ),
         padding: const EdgeInsets.all(12.00),
         width: 100,
