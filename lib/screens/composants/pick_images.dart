@@ -80,7 +80,13 @@ class _PickImagesState extends State<PickImages> {
                 padding: const EdgeInsets.all(16.00),
                 child: Stack(
                   children: [
-                    Image.file(File(widget.images!.path)),
+                    SizedBox(
+                      width: 200,
+                      height: 200,
+                      child: Image.file(
+                        fit:BoxFit.cover,
+                        File(widget.images!.path)),
+                    ),
                     Positioned(
                         child: IconButton(
                             onPressed: () {

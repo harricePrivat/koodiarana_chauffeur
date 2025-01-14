@@ -176,22 +176,31 @@ class _Page1State extends State<Page2> {
                     ),
                   ),
                   ShadButton(
-                    onPressed: () async {
-                      FirebaseAuth.instance.signOut();
-                      Provider.of<AppManager>(context, listen: false)
-                          .disconnected();
-                      Provider.of<NavigationManager>(context, listen: false)
-                          .goToFirst();
-                    },
-                    backgroundColor: Colors.grey,
-                    decoration: ShadDecoration(color: Colors.grey),
-                    child: Text(
-                      "Déconnexion",
-                      style: TextStyle(
-                        color: theme.primaryColor,
-                      ),
-                    ),
-                  ),
+                      onPressed: () async {
+                        FirebaseAuth.instance.signOut();
+                        Provider.of<AppManager>(context, listen: false)
+                            .disconnected();
+                        Provider.of<NavigationManager>(context, listen: false)
+                            .goToFirst();
+                      },
+                      backgroundColor: const Color.fromARGB(255, 221, 100, 91),
+                      decoration: ShadDecoration(color: Colors.grey),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        spacing: 16.00,
+                        children: [
+                          Icon(
+                            color: Colors.white,
+                            Icons.logout,
+                          ),
+                          Text(
+                            "Déconnexion",
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      )),
                 ],
               ),
             ),
