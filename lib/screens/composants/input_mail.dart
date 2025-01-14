@@ -5,15 +5,15 @@ import 'package:shadcn_ui/shadcn_ui.dart';
 class InputMail extends StatelessWidget {
   TextEditingController mail = TextEditingController();
   String? label;
-  String ?placeholder;
-  InputMail({super.key,this.placeholder, this.label, required this.mail});
+  String? placeholder;
+  InputMail({super.key, this.placeholder, this.label, required this.mail});
 
   @override
   Widget build(BuildContext context) {
     return ShadInputFormField(
-      label: Text(label!),
+      label: Text(label ?? ""),
       controller: mail,
-      placeholder: Text('entrez votre mail'),
+      placeholder: Text(placeholder ?? ''),
       keyboardType: TextInputType.emailAddress,
       decoration: ShadDecoration(
           border: ShadBorder(

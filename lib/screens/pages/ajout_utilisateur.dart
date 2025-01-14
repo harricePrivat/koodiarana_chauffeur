@@ -7,6 +7,7 @@ import 'package:koodiarana_chauffeur/models/user.dart';
 import 'package:koodiarana_chauffeur/screens/composants/input_cin.dart';
 import 'package:koodiarana_chauffeur/screens/composants/input_date.dart';
 import 'package:koodiarana_chauffeur/screens/composants/input_form.dart';
+import 'package:koodiarana_chauffeur/screens/composants/input_mail.dart';
 import 'package:koodiarana_chauffeur/screens/composants/input_num.dart';
 import 'package:koodiarana_chauffeur/screens/composants/password_input.dart';
 import 'package:koodiarana_chauffeur/screens/composants/pick_images.dart';
@@ -106,8 +107,12 @@ class _AjoutUtilisateurState extends State<AjoutUtilisateur> {
                           label: "votre cin *",
                           placeholder: "entrez votre cin",
                         ),
-                       
                         InputNum(controller: num),
+                        InputMail(
+                          mail: mail,
+                          label: "votre mail * ",
+                          placeholder: "entrez votre mail ",
+                        ),
                         PickImages(
                             images: rectoCIN,
                             onPicked: () {
