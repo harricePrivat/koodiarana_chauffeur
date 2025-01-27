@@ -12,9 +12,11 @@ final class Step1Event extends StepEvent {
   final String prenom;
   final String email;
   final String phoneNumber;
+  final String password;
   final DateTime dateOfBirth;
 
   const Step1Event({
+    required this.password,
     required this.nom,
     required this.prenom,
     required this.email,
@@ -23,8 +25,7 @@ final class Step1Event extends StepEvent {
   });
 
   @override
-  List<Object> get props =>
-      [nom, prenom, email, phoneNumber, dateOfBirth];
+  List<Object> get props => [nom,password, prenom, email, phoneNumber, dateOfBirth];
 }
 
 final class Step2Event extends StepEvent {

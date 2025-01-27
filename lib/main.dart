@@ -6,6 +6,7 @@ import 'package:koodiarana_chauffeur/bloc/ajout_utilisateur/ajout_utilisateur_bl
 import 'package:koodiarana_chauffeur/bloc/change_password/change_password_bloc.dart';
 import 'package:koodiarana_chauffeur/bloc/get_otp/get_otp_bloc.dart';
 import 'package:koodiarana_chauffeur/bloc/signInGoogle/sign_in_google_bloc.dart';
+import 'package:koodiarana_chauffeur/bloc/stepper/step_bloc.dart';
 import 'package:koodiarana_chauffeur/bloc/test_otp/test_otp_bloc.dart';
 import 'package:koodiarana_chauffeur/bloc/to_login/to_login_bloc.dart';
 import 'package:koodiarana_chauffeur/providers/app_manager.dart';
@@ -37,7 +38,6 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // print("Notification reçue en arrière-plan: ${message.notification?.title}");
 }
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
@@ -56,10 +56,11 @@ void main() async {
             ChangeNotifierProvider(create: (context) => ScrollManager()),
             ChangeNotifierProvider(create: (context) => NavigationManager()),
             ChangeNotifierProvider(create: (context) => AppManager()),
-            ChangeNotifierProvider(create: (context)=> StepperNotifier())
+            ChangeNotifierProvider(create: (context) => StepperNotifier())
           ],
           child: MultiBlocProvider(
             providers: [
+              BlocProvider(create: (context) => StepBloc()),
               BlocProvider(create: (context) => SignInGoogleBloc()),
               BlocProvider(create: (context) => ToLoginBloc()),
               BlocProvider(create: (contet) => GetOtpBloc()),
