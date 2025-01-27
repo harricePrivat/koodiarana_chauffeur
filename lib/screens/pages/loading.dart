@@ -18,7 +18,7 @@ class _Loading extends State<Loading> {
         BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
           child: Container(
-            color: const Color.fromARGB(90, 153, 152, 152),
+            color: const Color.fromARGB(90, 153, 152, 152,),
           ),
         ),
         ModalBarrier(

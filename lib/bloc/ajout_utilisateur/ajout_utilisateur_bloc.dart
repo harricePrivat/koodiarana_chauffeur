@@ -15,7 +15,7 @@ class AjoutUtilisateurBloc
       emit(AjoutUtilisateurLoading());
       try {
         final response = await SendData()
-            .goPost("${dotenv.env["URL"]}/verify-mail-account", {
+            .goPost("${dotenv.env["URL"]}/users/create", {
           "nom": event.users!.nom,
           "prenom": event.users!.prenom,
           "num": event.users!.phoneNumber,
@@ -34,7 +34,7 @@ class AjoutUtilisateurBloc
           }
         }
       } catch (e) {
-        print(e);
+       // print(e);
         emit(AjoutUtilisateurError(
             message: "Erruer de l'ajout de l'utilisateur"));
       }

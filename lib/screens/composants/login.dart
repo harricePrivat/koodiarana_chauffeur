@@ -6,6 +6,7 @@ import 'package:koodiarana_chauffeur/bloc/signInGoogle/sign_in_google_event.dart
 import 'package:koodiarana_chauffeur/bloc/to_login/to_login_bloc.dart';
 import 'package:koodiarana_chauffeur/providers/app_manager.dart';
 import 'package:koodiarana_chauffeur/screens/composants/button_google.dart';
+import 'package:koodiarana_chauffeur/screens/pages/add_user.dart';
 import 'package:koodiarana_chauffeur/screens/pages/ajout_utilisateur.dart';
 import 'package:koodiarana_chauffeur/screens/pages/forgot_password.dart';
 import 'package:koodiarana_chauffeur/screens/pages/loading.dart';
@@ -108,8 +109,7 @@ class _LoginState extends State<Login> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>
-                                          AjoutUtilisateur()));
+                                      builder: (context) => AddUser()));
                             },
                             child: Text(
                               'S\'inscrire',

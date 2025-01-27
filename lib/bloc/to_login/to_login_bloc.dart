@@ -14,20 +14,28 @@ class ToLoginBloc extends Bloc<ToLoginEvent, ToLoginState> {
     on<OnSubmitLogin>((event, emit) async {
       emit(ToLoginLoading());
       try {
-        final response = await SendData().goPost("${dotenv.env['URL']}/login",
-            {"mailNum": event.mailNum!, "mdp": event.password!});
+        final response = await SendData().goPost(
+            "${dotenv.env['URL']}/auth/login",
+            {"email": event.mailNum!, "password": event.password!});
+        print("Status code : ${response.statusCode}");
         if (response.statusCode == 200) {
           final body = jsonDecode(response.body);
-          final data = body['data'];
+          print(body);
           emit(ToLoginDone(
               user: Users(
-                  nom: data['nom'],
-                  prenom: data['prenom'],
-                  datedeNaissance: data['dateDeNaissance'],
-                  email: data['email'],
-                  phoneNumber: data['num'])));
-        } else {
-          emit(ToLoginError(messsage: "Identifiant ou mot de passe incorrect"));
+                  nom: body['nom'],
+                  prenom: body['prenom'],
+                  datedeNaissance: body['dateNaissance'],
+                  email: body['email'],
+                  phoneNumber: body['num'])));
+        } else if (response.statusCode == 401) {
+          final body = jsonDecode(response.body);
+          final data = body['message'];
+          emit(ToLoginError(messsage: data));
+        } else if (response.statusCode == 404) {
+          final body = jsonDecode(response.body);
+          final data = body['message'];
+          emit(ToLoginError(messsage: data));
         }
       } catch (e) {
         print(e);

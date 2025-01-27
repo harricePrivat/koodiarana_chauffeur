@@ -1,4 +1,4 @@
-import 'dart:convert';
+// import 'dart:convert';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -15,17 +15,18 @@ class ChangePasswordBloc
       emit(ChangePasswordLoading());
       try {
         final response = await SendData().goPost(
-            '${dotenv.env['URL']}/change-password',
-            {"mail": event.mail, "newMdp": event.password});
+            '${dotenv.env['URL']}/users/changePassword',
+            {"email": event.mail, "newPassword": event.password});
 
         if (response.statusCode == 200) {
-          final body = jsonDecode(response.body);
-          print(body);
-          if ("OK".compareTo(body['message']) == 0) {
-            emit(ChangePasswordDone());
-          } else {
-            emit(ChangePasswordError(message: "Erreur de connexion"));
-          }
+         // final body = jsonDecode(response.body);
+          emit(ChangePasswordDone());
+        } else if (response.statusCode == 404) {
+          emit(ChangePasswordError(message: "Utilisateur introuvable"));
+        } else if (response.statusCode == 500) {
+          emit(ChangePasswordError(message: "Erreur de connexion"));
+        } else {
+          emit(ChangePasswordError(message: "Erreur de connexion"));
         }
       } catch (e) {
         print(e);

@@ -11,6 +11,7 @@ import 'package:koodiarana_chauffeur/bloc/to_login/to_login_bloc.dart';
 import 'package:koodiarana_chauffeur/providers/app_manager.dart';
 import 'package:koodiarana_chauffeur/providers/navigation_manager.dart';
 import 'package:koodiarana_chauffeur/providers/scroll_manager.dart';
+import 'package:koodiarana_chauffeur/providers/stepper.dart';
 import 'package:koodiarana_chauffeur/screens/pages/splash_screen.dart';
 import 'package:koodiarana_chauffeur/services/authentification.dart';
 import 'package:koodiarana_chauffeur/services/go_router.dart';
@@ -54,7 +55,8 @@ void main() async {
                 value: AuthService().userConnection, initialData: null),
             ChangeNotifierProvider(create: (context) => ScrollManager()),
             ChangeNotifierProvider(create: (context) => NavigationManager()),
-            ChangeNotifierProvider(create: (context) => AppManager())
+            ChangeNotifierProvider(create: (context) => AppManager()),
+            ChangeNotifierProvider(create: (context)=> StepperNotifier())
           ],
           child: MultiBlocProvider(
             providers: [

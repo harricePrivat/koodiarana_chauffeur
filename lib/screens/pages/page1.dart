@@ -4,7 +4,7 @@ import 'package:koodiarana_chauffeur/providers/scroll_manager.dart';
 import 'package:provider/provider.dart';
 
 class Page1 extends StatefulWidget {
-  const Page1({super.key});
+   const Page1({super.key});
 
   @override
   State<Page1> createState() => _Page1State();
@@ -42,7 +42,9 @@ class _Page1State extends State<Page1> {
                 leading: Icon(Icons.notifications_none),
                 title: Text('title'),
                 subtitle: Text('subTitle'),
-                onTap: () {},
+                onTap: () {
+                
+                },
               );
             },
             itemCount: 50);

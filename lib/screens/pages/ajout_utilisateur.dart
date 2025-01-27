@@ -66,6 +66,28 @@ class _AjoutUtilisateurState extends State<AjoutUtilisateur> {
                         ),
                       ));
             }
+            if (state is AjoutUtilisateurError) {
+              showDialog(
+                  context: context,
+                  builder: (context) => Padding(
+                        padding: EdgeInsets.all(16),
+                        child: ShadDialog.alert(
+                          title: Text(state.message),
+                          description: Padding(
+                            padding: const EdgeInsets.only(bottom: 8),
+                            child: Text(
+                              state.message,
+                            ),
+                          ),
+                          actions: [
+                            ShadButton(
+                              child: const Text('OK'),
+                              onPressed: () => Navigator.pop(context),
+                            ),
+                          ],
+                        ),
+                      ));
+            }
           },
           child: BlocBuilder<AjoutUtilisateurBloc, AjoutUtilisateurState>(
               builder: (context, state) {
@@ -229,7 +251,10 @@ class _AjoutUtilisateurState extends State<AjoutUtilisateur> {
                                     msg:
                                         "Veuillez vérifier votre mot de passe");
                               }
-                              clearForm();
+                              //   clearForm();
+                            } else {
+                              Fluttertoast.showToast(
+                                  msg: "Veuillez vérifier les champs");
                             }
                           },
                           child: Text("Créer mon compte"),

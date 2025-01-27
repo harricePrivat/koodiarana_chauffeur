@@ -1,5 +1,6 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:koodiarana_chauffeur/models/user.dart';
 import 'package:koodiarana_chauffeur/providers/app_manager.dart';
@@ -47,8 +48,7 @@ class _AccueilState extends State<Accueil> {
   Position? currentPosition;
   // LatLng? _currentPosition;
 
-  final ws =
-      WebSocketChannel.connect(Uri.parse("ws://192.168.43.224:9999/position"));
+  final ws = WebSocketChannel.connect(Uri.parse("${dotenv.env['URL_SOCKET']}"));
   @override
   void initState() {
     super.initState();
@@ -119,11 +119,12 @@ class _AccueilState extends State<Accueil> {
         .listen((position) {
       currentPosition = position;
       final data = {
-        "mail": user.email,
+        "email": user.email,
         "longitude": currentPosition!.longitude.toString(),
         "latitude": currentPosition!.latitude.toString()
       };
       ws.sink.add(jsonEncode(data));
+      print("nandefa");
     });
   }
 
