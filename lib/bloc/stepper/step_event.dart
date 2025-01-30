@@ -25,38 +25,27 @@ final class Step1Event extends StepEvent {
   });
 
   @override
-  List<Object> get props => [nom,password, prenom, email, phoneNumber, dateOfBirth];
-}
-
-final class Step2Event extends StepEvent {
-  final String cin;
-  final String number;
-  final String mail;
-
-  const Step2Event({
-    required this.cin,
-    required this.number,
-    required this.mail,
-  });
-
-  @override
-  List<Object> get props => [cin, number, mail];
+  List<Object> get props =>
+      [nom, password, prenom, email, phoneNumber, dateOfBirth];
 }
 
 // ignore: must_be_immutable
 final class Step3Event extends StepEvent {
   XFile rectoCIN;
+  String email;
   XFile versoCIN;
-  Step3Event({required this.rectoCIN, required this.versoCIN});
+  Step3Event(
+      {required this.email, required this.rectoCIN, required this.versoCIN});
   @override
-  List<Object> get props => [rectoCIN, versoCIN];
+  List<Object> get props => [rectoCIN, versoCIN, email];
 }
 
 // ignore: must_be_immutable
 final class Step4Event extends StepEvent {
+  String email;
   XFile pdp;
   XFile moto;
-  Step4Event({required this.pdp, required this.moto});
+  Step4Event({required this.email,required this.pdp, required this.moto});
   @override
-  List<Object> get props => [pdp, moto];
+  List<Object> get props => [email,pdp, moto];
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 // import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:koodiarana_chauffeur/bloc/stepper/step_bloc.dart';
@@ -53,116 +54,158 @@ class _AddUserState extends State<AddUser> {
                 return Row(
                   children: [
                     if (step.currentStep != 0)
-                      ShadButton(
-                        child: Text("Précédent"),
-                        onPressed: () {
-                          if (step.currentStep > 0) {
-                            step.onChange(step.currentStep - 1);
-                          } else {
-                            Navigator.pop(context);
-                          }
-                        },
-                      ),
+                      BlocBuilder<StepBloc, StepsState>(
+                          builder: (context, state) {
+                        return ShadButton(
+                          onPressed: state is StepLoading
+                              ? null
+                              : () {
+                                  if (step.currentStep > 0) {
+                                    step.onChange(step.currentStep - 1);
+                                  } else {
+                                    Navigator.pop(context);
+                                  }
+                                },
+                          child: state is StepLoading
+                              ? Text(".....")
+                              : Text("Précédent"),
+                        );
+                      }),
                     if (step.currentStep != 3)
-                      ShadButton(
-                        child: Text("Suivaint"),
-                        onPressed: () {
-                          if (step.currentStep == 0) {
-                            if (formKey1.currentState!.validate()) {
-                              if (step.currentStep < 4) {
-                                step.onChange(step.currentStep + 1);
-                              } else {
-                                //
-                              }
-                            }
-                          } else if (step.currentStep == 1) {
-                            if (formKey2.currentState!.validate()) {
-                              context.read<StepBloc>().add(Step1Event(
-                                  password: password.text,
-                                  nom: nom.text,
-                                  prenom: prenom.text,
-                                  email: mail.text,
-                                  phoneNumber: num.text,
-                                  dateOfBirth: pickedDate));
-                              // if (step.currentStep < 4) {
-                              //   step.onChange(step.currentStep + 1);
-                              // } else {
-                              //   //
-                              // }
-                            }
-                          } else if (step.currentStep == 2) {
-                            //  if (formKey3.currentState!.validate()) {
-                            if (rectoCIN != null && versoCIN != null) {
-                              if (step.currentStep < 4) {
-                                step.onChange(step.currentStep + 1);
-                              } else {
-                                //
-                              }
-                            } else {
-                              showDialog(
-                                  context: context,
-                                  builder: (context) => Padding(
-                                        padding: EdgeInsets.all(16),
-                                        child: ShadDialog.alert(
-                                          title: Text("Erreur"),
-                                          description: Padding(
-                                            padding: const EdgeInsets.only(
-                                                bottom: 8),
-                                            child: Text(
-                                              "Vous devez ajouter les photos de votre CIN (recto et verso)",
-                                            ),
-                                          ),
-                                          actions: [
-                                            ShadButton(
-                                              child: const Text('OK'),
-                                              onPressed: () =>
-                                                  Navigator.pop(context),
-                                            ),
-                                          ],
-                                        ),
-                                      ));
-                            }
-                          } else if (step.currentStep == 3) {
-                            // if (formKey4.currentState!.validate()) {
-                            if (moto != null && pdp != null) {
-                              if (step.currentStep < 4) {
-                                step.onChange(step.currentStep + 1);
-                              } else {
-                                //
-                              }
-                            } else {
-                              showDialog(
-                                  context: context,
-                                  builder: (context) => Padding(
-                                        padding: EdgeInsets.all(16),
-                                        child: ShadDialog.alert(
-                                          title: Text("Erreur"),
-                                          description: Padding(
-                                            padding: const EdgeInsets.only(
-                                                bottom: 8),
-                                            child: Text(
-                                              "Vous devez ajouter les photos de votre moto et de votre profil",
-                                            ),
-                                          ),
-                                          actions: [
-                                            ShadButton(
-                                              child: const Text('OK'),
-                                              onPressed: () =>
-                                                  Navigator.pop(context),
-                                            ),
-                                          ],
-                                        ),
-                                      ));
-                            }
-                            // }
-                          }
-                        },
-                      ),
+                      BlocBuilder<StepBloc, StepsState>(
+                          builder: (context, state) {
+                        return ShadButton(
+                          onPressed: state is StepLoading
+                              ? null
+                              : () {
+                                  if (step.currentStep == 0) {
+                                    if (formKey1.currentState!.validate()) {
+                                      if (step.currentStep < 4) {
+                                        step.onChange(step.currentStep + 1);
+                                      } else {
+                                        //
+                                      }
+                                    }
+                                  } else if (step.currentStep == 1) {
+                                    if (formKey2.currentState!.validate()) {
+                                      context.read<StepBloc>().add(Step1Event(
+                                          password: password.text,
+                                          nom: nom.text,
+                                          prenom: prenom.text,
+                                          email: mail.text,
+                                          phoneNumber: num.text,
+                                          dateOfBirth: pickedDate));
+                                      // if (step.currentStep < 4) {
+                                      //   step.onChange(step.currentStep + 1);
+                                      // } else {
+                                      //   //
+                                      // }
+                                    }
+                                  } else if (step.currentStep == 2) {
+                                    //  if (formKey3.currentState!.validate()) {
+                                    if (rectoCIN != null && versoCIN != null) {
+                                      context.read<StepBloc>().add(Step3Event(
+                                          email: mail.text,
+                                          rectoCIN: rectoCIN!,
+                                          versoCIN: versoCIN!));
+                                      // if (step.currentStep < 4) {
+                                      //   step.onChange(step.currentStep + 1);
+                                      // } else {
+                                      //   //
+                                      // }
+                                    } else {
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) => Padding(
+                                                padding: EdgeInsets.all(16),
+                                                child: ShadDialog.alert(
+                                                  title: Text("Erreur"),
+                                                  description: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            bottom: 8),
+                                                    child: Text(
+                                                      "Vous devez ajouter les photos de votre CIN (recto et verso)",
+                                                    ),
+                                                  ),
+                                                  actions: [
+                                                    ShadButton(
+                                                      child: const Text('OK'),
+                                                      onPressed: () =>
+                                                          Navigator.pop(
+                                                              context),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ));
+                                    }
+                                  } else if (step.currentStep == 3) {
+                                    // if (formKey4.currentState!.validate()) {
+                                    if (moto != null && pdp != null) {
+                                      context.read<StepBloc>().add(Step4Event(
+                                          email: mail.text,
+                                          pdp: pdp!,
+                                          moto: moto!));
+                                      // if (step.currentStep < 4) {
+                                      //   step.onChange(step.currentStep + 1);
+                                      // } else {
+                                      //   //
+                                      // }
+                                    } else {
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) => Padding(
+                                                padding: EdgeInsets.all(16),
+                                                child: ShadDialog.alert(
+                                                  title: Text("Erreur"),
+                                                  description: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            bottom: 8),
+                                                    child: Text(
+                                                      "Vous devez ajouter les photos de votre moto et de votre profil",
+                                                    ),
+                                                  ),
+                                                  actions: [
+                                                    ShadButton(
+                                                      child: const Text('OK'),
+                                                      onPressed: () =>
+                                                          Navigator.pop(
+                                                              context),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ));
+                                    }
+                                    // }
+                                  }
+                                },
+                          child: state is StepLoading
+                              ? CircularProgressIndicator(
+                                  color: theme.primaryColor,
+                                )
+                              : Text("Suivaint"),
+                        );
+                      }),
                     if (step.currentStep == 3)
-                      ShadButton(
-                        child: Text("Terminer"),
-                        onPressed: () {},
-                      )
+                      BlocBuilder<StepBloc, StepsState>(
+                          builder: (context, state) {
+                        return ShadButton(
+                          onPressed: state is StepLoading
+                              ? null
+                              : () {
+                                  context.read<StepBloc>().add(Step4Event(
+                                      email: mail.text,
+                                      pdp: pdp!,
+                                      moto: moto!));
+                                },
+                          child: state is StepLoading
+                              ? CircularProgressIndicator(
+                                  color: theme.primaryColor,
+                                )
+                              : Text("Terminer"),
+                        );
+                      })
                   ],
                 );
               },
@@ -201,9 +244,9 @@ class _AddUserState extends State<AddUser> {
                         key: formKey2,
                         child: BlocListener<StepBloc, StepsState>(
                           listener: (context, state) {
-                            if (state is StepDone) {
+                            if (state is StepDone1) {
                               step.onChange(step.currentStep + 1);
-                            } else if (state is StepError) {
+                            } else if (state is StepError1) {
                               showDialog(
                                   context: context,
                                   builder: (context) => Padding(
@@ -231,10 +274,13 @@ class _AddUserState extends State<AddUser> {
                           child: BlocBuilder<StepBloc, StepsState>(
                               builder: (context, state) {
                             if (state is StepLoading) {
-                              return Center(
-                                  child: CircularProgressIndicator(
-                                color: theme.primaryColor,
-                              ));
+                              return Padding(
+                                padding: EdgeInsets.all(16.00),
+                                child: Center(
+                                    child: CircularProgressIndicator(
+                                  color: theme.primaryColor,
+                                )),
+                              );
                             }
                             return Column(
                               children: [
@@ -259,53 +305,163 @@ class _AddUserState extends State<AddUser> {
                         ))),
                 Step(
                     title: Text("Photo de votre CIN"),
-                    content: Column(
-                      spacing: 16,
-                      children: [
-                        PickImages(
-                            images: rectoCIN,
-                            onPicked: () async {
-                              final picker = ImagePicker();
-                              rectoCIN = await picker.pickImage(
-                                  source: ImageSource.gallery);
-                              setState(() {});
-                            },
-                            name: "Ajouter la photo de votre CIN (recto)"),
-                        PickImages(
-                            images: versoCIN,
-                            onPicked: () async {
-                              final picker = ImagePicker();
-                              versoCIN = await picker.pickImage(
-                                  source: ImageSource.gallery);
-                              setState(() {});
-                            },
-                            name: "Ajouter la photo de votre CIN (verso)"),
-                      ],
+                    content: BlocListener<StepBloc, StepsState>(
+                      listener: (context, state) {
+                        if (state is StepDone2) {
+                          if (step.currentStep < 4) {
+                            step.onChange(step.currentStep + 1);
+                          }
+                        }
+                        if (state is StepError2) {
+                          showDialog(
+                              context: context,
+                              builder: (context) => Padding(
+                                    padding: EdgeInsets.all(16),
+                                    child: ShadDialog.alert(
+                                      title: Text("Erreur"),
+                                      description: Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 8),
+                                        child: Text(
+                                          "Une erreur s'est produite lors de l'ajout des photos de votre CIN",
+                                        ),
+                                      ),
+                                      actions: [
+                                        ShadButton(
+                                          child: const Text('OK'),
+                                          onPressed: () =>
+                                              Navigator.pop(context),
+                                        ),
+                                      ],
+                                    ),
+                                  ));
+                        }
+                      },
+                      child: BlocBuilder<StepBloc, StepsState>(
+                          builder: (context, state) {
+                        if (state is StepLoading) {
+                          return Padding(
+                            padding: EdgeInsets.all(16.00),
+                            child: Center(
+                                child: CircularProgressIndicator(
+                              color: theme.primaryColor,
+                            )),
+                          );
+                        }
+                        return Column(
+                          spacing: 16,
+                          children: [
+                            PickImages(
+                                images: rectoCIN,
+                                onPicked: () async {
+                                  final picker = ImagePicker();
+                                  rectoCIN = await picker.pickImage(
+                                      source: ImageSource.gallery);
+                                  setState(() {});
+                                },
+                                name: "Ajouter la photo de votre CIN (recto)"),
+                            PickImages(
+                                images: versoCIN,
+                                onPicked: () async {
+                                  final picker = ImagePicker();
+                                  versoCIN = await picker.pickImage(
+                                      source: ImageSource.gallery);
+                                  setState(() {});
+                                },
+                                name: "Ajouter la photo de votre CIN (verso)"),
+                          ],
+                        );
+                      }),
                     )),
                 Step(
                     title: Text("Photo supplementaire"),
-                    content: Column(
-                      spacing: 16,
-                      children: [
-                        PickImages(
-                            images: pdp,
-                            onPicked: () async {
-                              final picker = ImagePicker();
-                              pdp = await picker.pickImage(
-                                  source: ImageSource.gallery);
-                              setState(() {});
-                            },
-                            name: "Ajouter la photo de profil"),
-                        PickImages(
-                            images: moto,
-                            onPicked: () async {
-                              final picker = ImagePicker();
-                              moto = await picker.pickImage(
-                                  source: ImageSource.gallery);
-                              setState(() {});
-                            },
-                            name: "Ajouter la photo de votre moto"),
-                      ],
+                    content: BlocListener<StepBloc, StepsState>(
+                      listener: (context, state) {
+                        if (state is StepDone3) {
+                          Navigator.pop(context);
+                          showDialog(
+                              context: context,
+                              builder: (context) => Padding(
+                                    padding: EdgeInsets.all(16),
+                                    child: ShadDialog.alert(
+                                      title: Text("Créer avec succès"),
+                                      description: Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 8),
+                                        child: Text(
+                                          "Veuillez cliquer le lien de confirmation envoyé à votre mail pour activer votre compte",
+                                        ),
+                                      ),
+                                      actions: [
+                                        ShadButton(
+                                          child: const Text('OK'),
+                                          onPressed: () =>
+                                              Navigator.pop(context),
+                                        ),
+                                      ],
+                                    ),
+                                  ));
+                        }
+                        if (state is StepError3) {
+                          showDialog(
+                              context: context,
+                              builder: (context) => Padding(
+                                    padding: EdgeInsets.all(16),
+                                    child: ShadDialog.alert(
+                                      title: Text("Erreur"),
+                                      description: Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 8),
+                                        child: Text(
+                                          "Une erreur s'est produite lors de l'ajout des photos de votre moto et de votre profil",
+                                        ),
+                                      ),
+                                      actions: [
+                                        ShadButton(
+                                          child: const Text('OK'),
+                                          onPressed: () =>
+                                              Navigator.pop(context),
+                                        ),
+                                      ],
+                                    ),
+                                  ));
+                        }
+                      },
+                      child: BlocBuilder<StepBloc, StepsState>(
+                          builder: (context, state) {
+                        if (state is StepLoading) {
+                          return Padding(
+                            padding: EdgeInsets.all(16.00),
+                            child: Center(
+                                child: CircularProgressIndicator(
+                              color: theme.primaryColor,
+                            )),
+                          );
+                        }
+                        return Column(
+                          spacing: 16,
+                          children: [
+                            PickImages(
+                                images: pdp,
+                                onPicked: () async {
+                                  final picker = ImagePicker();
+                                  pdp = await picker.pickImage(
+                                      source: ImageSource.gallery);
+                                  setState(() {});
+                                },
+                                name: "Ajouter la photo de profil"),
+                            PickImages(
+                                images: moto,
+                                onPicked: () async {
+                                  final picker = ImagePicker();
+                                  moto = await picker.pickImage(
+                                      source: ImageSource.gallery);
+                                  setState(() {});
+                                },
+                                name: "Ajouter la photo de votre moto"),
+                          ],
+                        );
+                      }),
                     ))
               ]),
         );
