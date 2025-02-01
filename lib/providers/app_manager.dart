@@ -23,6 +23,7 @@ class AppManager extends ChangeNotifier {
   Users? get getUsers => users;
 
   void connected(Users user) async {
+    print("Voici le lien de pdp URL :  ${user.pdpUrl}");
     this.users = user;
     await AppSecurityCache().addConnection(user);
     notifyListeners();

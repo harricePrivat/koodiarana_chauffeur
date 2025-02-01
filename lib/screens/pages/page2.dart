@@ -70,7 +70,7 @@ class _Page1State extends State<Page2> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Expanded(
-                                child: Text(user!.nom,
+                                child: Text("${user!.nom} ${user.prenom}",
                                     style: textTheme.titleLarge),
                               ),
                               //Icon(Icons.person, size: 50)
@@ -78,7 +78,8 @@ class _Page1State extends State<Page2> {
                                 placeholder: Image.asset(
                                   "assets/Logo_koodiarana.png",
                                 ),
-                                "assets/Logo_koodiarana.png",
+                                //"assets/Logo_koodiarana.png",
+                                user.pdpUrl!,
                                 size: Size(65, 65),
                               )
                             ],

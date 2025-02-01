@@ -23,6 +23,7 @@ class ToLoginBloc extends Bloc<ToLoginEvent, ToLoginState> {
           print(body);
           emit(ToLoginDone(
               user: Users(
+                  pdpUrl: body['photoProfil'],
                   nom: body['nom'],
                   prenom: body['prenom'],
                   datedeNaissance: body['dateNaissance'],

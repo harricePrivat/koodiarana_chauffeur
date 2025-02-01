@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-// import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:koodiarana_chauffeur/bloc/stepper/step_bloc.dart';
+import 'package:koodiarana_chauffeur/bloc/verification_mail/verification_mail_bloc.dart';
 import 'package:koodiarana_chauffeur/providers/stepper.dart';
 import 'package:koodiarana_chauffeur/screens/composants/input_cin.dart';
 import 'package:koodiarana_chauffeur/screens/composants/input_date.dart';
@@ -386,18 +385,62 @@ class _AddUserState extends State<AddUser> {
                                     child: ShadDialog.alert(
                                       title: Text("Créer avec succès"),
                                       description: Padding(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 8),
-                                        child: Text(
-                                          "Veuillez cliquer le lien de confirmation envoyé à votre mail pour activer votre compte",
-                                        ),
-                                      ),
+                                          padding:
+                                              const EdgeInsets.only(bottom: 8),
+                                          child: BlocBuilder<
+                                                  VerificationMailBloc,
+                                                  VerificationMailState>(
+                                              builder: (context, state) {
+                                            if (state
+                                                is VerificationMailError) {
+                                              return Text(
+                                                  "Une erreur s'est produite lors de l'envoi du mail de vérification");
+                                            }
+                                            if (state
+                                                is VerificationMailLoading) {
+                                              return CircularProgressIndicator(
+                                                color:
+                                                    theme.secondaryHeaderColor,
+                                              );
+                                            }
+                                            if (state is VerificationMailDone) {
+                                              return Text(
+                                                  "Votre compte a été créé avec succès, veuillez vérifier votre boîte mail pour activer votre compte");
+                                            }
+                                            return Text(
+                                              "Votre compte a été créé avec succès, veuillez vérifier votre boîte mail pour activer votre compte",
+                                            );
+                                          })),
                                       actions: [
-                                        ShadButton(
-                                          child: const Text('OK'),
-                                          onPressed: () =>
-                                              Navigator.pop(context),
-                                        ),
+                                        BlocBuilder<VerificationMailBloc,
+                                                VerificationMailState>(
+                                            builder: (context, state) {
+                                          return ShadButton(
+                                              child: Text(state
+                                                      is VerificationMailLoading
+                                                  ? "Loading...."
+                                                  : "OK"),
+                                              onPressed: () {
+                                                if (state
+                                                    is VerificationMailLoading) {
+                                                  null;
+                                                }
+                                                if (state
+                                                        is VerificationMailError ||
+                                                    state
+                                                        is VerificationMailInitial) {
+                                                  context
+                                                      .read<
+                                                          VerificationMailBloc>()
+                                                      .add(OnSubmitMail(
+                                                          mail: mail.text));
+                                                  if (state
+                                                      is VerificationMailDone) {
+                                                    Navigator.pop(context);
+                                                  }
+                                                }
+                                              });
+                                        })
                                       ],
                                     ),
                                   ));

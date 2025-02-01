@@ -9,6 +9,7 @@ import 'package:koodiarana_chauffeur/bloc/signInGoogle/sign_in_google_bloc.dart'
 import 'package:koodiarana_chauffeur/bloc/stepper/step_bloc.dart';
 import 'package:koodiarana_chauffeur/bloc/test_otp/test_otp_bloc.dart';
 import 'package:koodiarana_chauffeur/bloc/to_login/to_login_bloc.dart';
+import 'package:koodiarana_chauffeur/bloc/verification_mail/verification_mail_bloc.dart';
 import 'package:koodiarana_chauffeur/providers/app_manager.dart';
 import 'package:koodiarana_chauffeur/providers/navigation_manager.dart';
 import 'package:koodiarana_chauffeur/providers/scroll_manager.dart';
@@ -60,6 +61,7 @@ void main() async {
           ],
           child: MultiBlocProvider(
             providers: [
+              BlocProvider(create: (context) => VerificationMailBloc()),
               BlocProvider(create: (context) => StepBloc()),
               BlocProvider(create: (context) => SignInGoogleBloc()),
               BlocProvider(create: (context) => ToLoginBloc()),
