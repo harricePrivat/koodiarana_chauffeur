@@ -46,24 +46,21 @@ class StepBloc extends Bloc<StepEvent, StepsState> {
       try {
         FormData formDataRecto = FormData.fromMap({
           "email": event.email,
-          "file": await MultipartFile.fromFile(event.rectoCIN.path)
+          "CIN2": await MultipartFile.fromFile(event.versoCIN.path),
+          "CIN1": await MultipartFile.fromFile(event.rectoCIN.path)
         });
 
-        FormData formDataVerso = FormData.fromMap({
-          "email": event.email,
-          "file": await MultipartFile.fromFile(event.versoCIN.path)
-        });
+        // FormData formDataVerso = FormData.fromMap({
+        //   "email": event.email,
+        //   "file": await MultipartFile.fromFile(event.versoCIN.path)
+        // });
 
         final responseRecto = await Dio()
-            .post("${dotenv.env['URL']}/users/uploadCIN1", data: formDataRecto);
-        final responseVerso = await Dio()
-            .post("${dotenv.env['URL']}/users/uploadCIN2", data: formDataVerso);
+            .post("${dotenv.env['URL']}/users/uploadCIN", data: formDataRecto);
 
-        if (responseRecto.statusCode == 200 &&
-            responseVerso.statusCode == 200) {
+        if (responseRecto.statusCode == 201) {
           emit(StepDone2());
-        } else if (responseRecto.statusCode == 500 ||
-            responseVerso.statusCode == 500) {
+        } else if (responseRecto.statusCode == 500) {
           emit(StepError2());
         } else {
           emit(StepError2());
@@ -77,26 +74,18 @@ class StepBloc extends Bloc<StepEvent, StepsState> {
     on<Step4Event>((event, emit) async {
       emit(StepLoading());
       try {
-        FormData profile = FormData.fromMap({
+        FormData others = FormData.fromMap({
           "email": event.email,
-          "file": await MultipartFile.fromFile(event.pdp.path)
+          "Profile": await MultipartFile.fromFile(event.pdp.path),
+          "Moto": await MultipartFile.fromFile(event.moto.path)
         });
-        FormData moto = FormData.fromMap({
-          "email": event.email,
-          "file": await MultipartFile.fromFile(event.moto.path)
-        });
-        final responseProfile = await Dio().post(
-            "${dotenv.env['URL']}/users/uploadProfilePics",
-            data: profile);
-        final responseMoto = await Dio()
-            .post("${dotenv.env['URL']}/users/uploadMoto", data: moto);
+        final response = await Dio()
+            .post("${dotenv.env['URL']}/users/uploadOthers", data: others);
 
-        if (responseMoto.statusCode == 200 &&
-            responseProfile.statusCode == 200) {
+        if (response.statusCode == 201) {
           emit(StepDone3());
         }
-        if (responseMoto.statusCode == 500 ||
-            responseProfile.statusCode == 500) {
+        if (response.statusCode == 500) {
           emit(StepError3());
         }
       } catch (e) {

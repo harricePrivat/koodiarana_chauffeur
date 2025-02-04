@@ -14,8 +14,8 @@ class VerificationMailBloc
       emit(VerificationMailLoading());
       try {
         final response = await SendData()
-            .goPost("${dotenv.env["URL"]}/auth/sendVerificationLink", {
-          "email": event.mail,
+            .goPost("${dotenv.env["URL"]}/email/sendVerificationLink", {
+          "token": event.tokens,
         });
         if (response.statusCode == 200) {
           emit(VerificationMailDone());

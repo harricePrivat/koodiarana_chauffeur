@@ -36,6 +36,7 @@ class _AddUserState extends State<AddUser> {
   TextEditingController password = TextEditingController();
   TextEditingController rePassword = TextEditingController();
   TextEditingController cin = TextEditingController();
+  String? tokens;
 
   DateTime pickedDate = DateTime.now();
   @override
@@ -244,6 +245,7 @@ class _AddUserState extends State<AddUser> {
                         child: BlocListener<StepBloc, StepsState>(
                           listener: (context, state) {
                             if (state is StepDone1) {
+                              tokens = state.tokens;
                               step.onChange(step.currentStep + 1);
                             } else if (state is StepError1) {
                               showDialog(
@@ -422,6 +424,10 @@ class _AddUserState extends State<AddUser> {
                                                   : "OK"),
                                               onPressed: () {
                                                 if (state
+                                                    is VerificationMailDone) {
+                                                  Navigator.pop(context);
+                                                }
+                                                if (state
                                                     is VerificationMailLoading) {
                                                   null;
                                                 }
@@ -433,7 +439,7 @@ class _AddUserState extends State<AddUser> {
                                                       .read<
                                                           VerificationMailBloc>()
                                                       .add(OnSubmitMail(
-                                                          mail: mail.text));
+                                                          tokens: tokens!));
                                                   if (state
                                                       is VerificationMailDone) {
                                                     Navigator.pop(context);

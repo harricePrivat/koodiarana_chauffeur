@@ -48,7 +48,7 @@ class _AccueilState extends State<Accueil> {
   Position? currentPosition;
   // LatLng? _currentPosition;
 
-  final ws = WebSocketChannel.connect(Uri.parse("${dotenv.env['URL_SOCKET']}"));
+  WebSocketChannel ws = WebSocketChannel.connect(Uri.parse("${dotenv.env['URL_SOCKET']}"));
   @override
   void initState() {
     super.initState();
@@ -148,7 +148,10 @@ class _AccueilState extends State<Accueil> {
           ),
           actions: [if (tabManager.tabValue == 0) Notif()],
         ),
-        body: listPages[tabManager.tabValue],
+        body: RefreshIndicator(
+            child: listPages[tabManager.tabValue], onRefresh: () async {
+              ws= WebSocketChannel.connect(Uri.parse("${dotenv.env['URL_SOCKET']}"));
+            }),
         bottomNavigationBar: AnimatedContainer(
             duration: Duration(milliseconds: 300),
             height: Provider.of<ScrollManager>(context, listen: true)

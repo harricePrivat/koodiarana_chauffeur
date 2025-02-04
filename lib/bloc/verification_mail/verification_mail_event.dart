@@ -8,7 +8,7 @@ sealed class VerificationMailEvent extends Equatable {
 }
 
 class OnSubmitMail extends VerificationMailEvent {
-  final String mail;
+  final String tokens;
 
-  OnSubmitMail({required this.mail});
+  OnSubmitMail({required this.tokens});
 }
