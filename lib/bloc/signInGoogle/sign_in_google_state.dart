@@ -20,6 +20,15 @@ class GoogleConnectionDone extends SignInGoogleState {
 }
 
 // ignore: must_be_immutable
+class FirstGoogleConnection extends SignInGoogleState {
+  Users? user;
+  FirstGoogleConnection({required this.user});
+
+  @override
+  List<Object> get props => [user!];
+}
+
+// ignore: must_be_immutable
 class GoogleConnectionError extends SignInGoogleState {
   String message;
   GoogleConnectionError({required this.message});

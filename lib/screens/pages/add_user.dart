@@ -14,8 +14,13 @@ import 'package:koodiarana_chauffeur/screens/composants/pick_images.dart';
 import 'package:provider/provider.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
+// ignore: must_be_immutable
 class AddUser extends StatefulWidget {
-  const AddUser({super.key});
+  String? nom;
+  String? prenom;
+  String? mail;
+
+  AddUser({super.key, this.nom, this.prenom, this.mail});
 
   @override
   State<AddUser> createState() => _AddUserState();
@@ -30,6 +35,7 @@ class _AddUserState extends State<AddUser> {
   XFile? pdp;
   XFile? moto;
   TextEditingController nom = TextEditingController();
+  //late TextEditingController nom;
   TextEditingController prenom = TextEditingController();
   TextEditingController num = TextEditingController();
   TextEditingController mail = TextEditingController();
@@ -37,6 +43,12 @@ class _AddUserState extends State<AddUser> {
   TextEditingController rePassword = TextEditingController();
   TextEditingController cin = TextEditingController();
   String? tokens;
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   nom = TextEditingController(text: widget.nom);
+  // }
 
   DateTime pickedDate = DateTime.now();
   @override
