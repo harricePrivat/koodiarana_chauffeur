@@ -17,10 +17,10 @@ class InputMail extends StatelessWidget {
       keyboardType: TextInputType.emailAddress,
       decoration: ShadDecoration(
           border: ShadBorder(
-        top: BorderSide(color: Colors.grey),
-        bottom: BorderSide(color: Colors.grey),
-        left: BorderSide(color: Colors.grey),
-        right: BorderSide(color: Colors.grey),
+        top: ShadBorderSide(color: Colors.grey),
+        bottom: ShadBorderSide(color: Colors.grey),
+        left: ShadBorderSide(color: Colors.grey),
+        right: ShadBorderSide(color: Colors.grey),
       )),
       validator: (v) {
         if (v.isEmpty) {

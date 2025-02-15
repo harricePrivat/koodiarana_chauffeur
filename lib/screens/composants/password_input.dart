@@ -41,31 +41,31 @@ class _PasswordInputState extends State<PasswordInput> {
           // hintText: '*******',
 
           ),
-      prefix: Padding(
-        padding: const EdgeInsets.all(4.0),
-        child: ShadImage.square(
-          size: 16,
-          LucideIcons.lock,
-          color: widget.color,
-        ),
-      ),
-      suffix: ShadButton(
-        width: 24,
-        height: 24,
-        padding: EdgeInsets.zero,
-        decoration: const ShadDecoration(
-          secondaryBorder: ShadBorder.none,
-          secondaryFocusedBorder: ShadBorder.none,
-        ),
-        icon: ShadImage.square(
-          size: 16,
-          obscure ? LucideIcons.eyeOff : LucideIcons.eye,
-          color: Colors.white,
-        ),
-        onPressed: () {
-          setState(() => obscure = !obscure);
-        },
-      ),
+      // prefix: Padding(
+      //   padding: const EdgeInsets.all(4.0),
+      //   child: ShadImage.square(
+      //     size: 16,
+      //     LucideIcons.lock,
+      //     color: widget.color,
+      //   ),
+      // ),
+      // suffix: ShadButton(
+      //   width: 24,
+      //   height: 24,
+      //   padding: EdgeInsets.zero,
+      //   decoration: const ShadDecoration(
+      //     secondaryBorder: ShadBorder.none,
+      //     secondaryFocusedBorder: ShadBorder.none,
+      //   ),
+      //   icon: ShadImage.square(
+      //     size: 16,
+      //     obscure ? LucideIcons.eyeOff : LucideIcons.eye,
+      //     color: Colors.white,
+      //   ),
+      //   onPressed: () {
+      //     setState(() => obscure = !obscure);
+      //   },
+      // ),
       validator: (v) {
         if (!widget.rePassword) {
           final passwordRegex = RegExp(

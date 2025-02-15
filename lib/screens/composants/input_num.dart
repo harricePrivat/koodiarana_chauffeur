@@ -14,10 +14,10 @@ class InputNum extends StatelessWidget {
       placeholder: Text("entrez votre numero de téléphone"),
       decoration: ShadDecoration(
           border: ShadBorder(
-        top: BorderSide(color: Colors.grey),
-        bottom: BorderSide(color: Colors.grey),
-        left: BorderSide(color: Colors.grey),
-        right: BorderSide(color: Colors.grey),
+        top: ShadBorderSide(color: Colors.grey),
+        bottom: ShadBorderSide(color: Colors.grey),
+        left: ShadBorderSide(color: Colors.grey),
+        right: ShadBorderSide(color: Colors.grey),
       )),
       keyboardType: TextInputType.phone,
       validator: (v) {

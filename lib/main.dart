@@ -22,17 +22,18 @@ import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import '../screens/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:workmanager/workmanager.dart';
 
-void callbackDispatcher() {
-  Workmanager().executeTask((task, data) {
-    if (task.compareTo("sendLocation") == 0) {
-      print("Bonjour les amis");
-    }
+// import 'package:workmanager/workmanager.dart';
 
-    return Future.value(true);
-  });
-}
+// void callbackDispatcher() {
+//   Workmanager().executeTask((task, data) {
+//     if (task.compareTo("sendLocation") == 0) {
+//       print("Bonjour les amis");
+//     }
+
+//     return Future.value(true);
+//   });
+// }
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print("Notification test");
@@ -42,9 +43,9 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
-  Workmanager().registerPeriodicTask("taskLocation", "sendLocation",
-      frequency: Duration(minutes: 15));
+  // Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
+  // Workmanager().registerPeriodicTask("taskLocation", "sendLocation",
+  //     frequency: Duration(minutes: 15));
   await Firebase.initializeApp();
   await dotenv.load(fileName: '.env');
   SystemChrome.setPreferredOrientations(
