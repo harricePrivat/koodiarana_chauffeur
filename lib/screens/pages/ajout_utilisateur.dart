@@ -224,13 +224,13 @@ class _AjoutUtilisateurState extends State<AjoutUtilisateur> {
                             },
                             name: "Ajouter la photo de votre CIN (verso)"),
                         PasswordInput(
-                            rePassword: false,
-                            controller: password,
-                            color: theme.primaryColor),
+                          rePassword: false,
+                          controller: password,
+                        ),
                         PasswordInput(
-                            rePassword: false,
-                            controller: rePassword,
-                            color: theme.primaryColor),
+                          rePassword: false,
+                          controller: rePassword,
+                        ),
                         ShadButton(
                           onPressed: () {
                             if (formKey.currentState!.saveAndValidate()) {

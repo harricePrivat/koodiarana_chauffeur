@@ -4,6 +4,7 @@ import 'package:koodiarana_chauffeur/providers/app_manager.dart';
 import 'package:koodiarana_chauffeur/screens/composants/input_date.dart';
 import 'package:koodiarana_chauffeur/screens/composants/input_form.dart';
 import 'package:koodiarana_chauffeur/screens/composants/input_mail.dart';
+import 'package:koodiarana_chauffeur/screens/composants/input_num.dart';
 import 'package:provider/provider.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
@@ -16,24 +17,29 @@ class MyAccount extends StatefulWidget {
 
 class _MyAccountState extends State<MyAccount> {
   late Users user;
-  late TextEditingController nom;
-  late TextEditingController prenom;
+  late TextEditingController nom = TextEditingController();
+  late TextEditingController prenom = TextEditingController();
   late DateTime datePicker;
-  late TextEditingController mail;
+  late TextEditingController mail = TextEditingController();
+  late TextEditingController num = TextEditingController();
   final formKey = GlobalKey<ShadFormState>();
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    user = Provider.of<AppManager>(context, listen: false).getUsers!;
-    nom = TextEditingController(text: user.nom);
-    prenom = TextEditingController(text: user.prenom);
-    mail = TextEditingController(text: user.email);
-    datePicker = DateTime.parse(user.datedeNaissance!);
-  }
+  // @override
+  // void didChangeDependencies() {
+  //   super.didChangeDependencies();
+  //   user = Provider.of<AppManager>(context, listen: false).getUsers!;
+  //   nom = TextEditingController(text: user.nom);
+  //   prenom = TextEditingController(text: user.prenom);
+  //   mail = TextEditingController(text: user.email);
+  //   datePicker = DateTime.parse(user.datedeNaissance!);
+  //   num = TextEditingController(text: user.phoneNumber);
+  // }
 
   @override
   Widget build(BuildContext context) {
+    user = Provider.of<AppManager>(context, listen: false).getUsers!;
+    datePicker = DateTime.parse(user.datedeNaissance!);
+    final theme = Theme.of(context);
     return Scaffold(
         appBar: AppBar(
           title: const Text("Mon compte"),
@@ -51,15 +57,28 @@ class _MyAccountState extends State<MyAccount> {
                         child: ShadAvatar(
                             size: Size(100, 100), "assets/Logo_koodiarana.png"),
                       ),
-                      InputForm(controller: nom, label: "votre nom"),
-                      InputForm(controller: prenom, label: "votre prenom"),
-                      InputMail(label: "votre email", mail: mail),
+                      InputForm(
+                        controller: nom,
+                        label: "votre nom",
+                        placeholder: user.nom,
+                      ),
+                      InputForm(
+                        controller: prenom,
+                        label: "votre prenom",
+                        placeholder: user.prenom,
+                      ),
+                      InputMail(label: "votre email", mail: mail,placeholder: user.email,),
                       InputDate(
                           label: "votre date de naissance",
                           datePicker: datePicker,
                           onDateChanged: (value) {}),
+                      InputNum(controller: num,placeholder: user.phoneNumber,),
                       ShadButton(
-                        child: Text("Sauvegarder les changements"),
+                        backgroundColor: theme.primaryColor,
+                        child: Text(
+                          "Sauvegarder les changements",
+                          style: TextStyle(color: theme.secondaryHeaderColor),
+                        ),
                       ),
                       ShadButton(
                         backgroundColor: Colors.red[300],

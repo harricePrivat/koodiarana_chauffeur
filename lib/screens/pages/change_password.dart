@@ -67,15 +67,21 @@ class _ChangePassword extends State<ChangePassword> {
                     backgroundColor: Colors.transparent,
                     title: Text(
                       "Changer de mot de passe",
-                      //    style: style,
+                      style: TextStyle(color: theme.primaryColor),
                     ),
                     description: Text(
-                        "Entrez votre nouveau mot de passe pour récupérer votre compte"),
+                      "Entrez votre nouveau mot de passe pour récupérer votre compte",
+                      style: TextStyle(color: theme.primaryColor),
+                    ),
                     footer: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         ShadButton(
-                          child: const Text('Récuperer'),
+                          backgroundColor: theme.primaryColor,
+                          child:  Text(
+                            'Récuperer',
+                            style: TextStyle(color: theme.secondaryHeaderColor),
+                          ),
                           onPressed: () async {
                             if (formKey.currentState!.saveAndValidate()) {
                               context.read<ChangePasswordBloc>().add(
@@ -95,14 +101,14 @@ class _ChangePassword extends State<ChangePassword> {
                         children: [
                           SizedBox(),
                           PasswordInput(
-                              rePassword: false,
-                              controller: controller1,
-                              color: theme.primaryColor),
+                            rePassword: false,
+                            controller: controller1,
+                          ),
                           PasswordInput(
-                              rePassword: false,
-                              // password: controller1.text,
-                              controller: controller2,
-                              color: theme.primaryColor),
+                            rePassword: false,
+                            // password: controller1.text,
+                            controller: controller2,
+                          ),
                         ],
                       ),
                     )),

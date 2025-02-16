@@ -137,14 +137,14 @@ class _AccueilState extends State<Accueil> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+ //   final theme = Theme.of(context);
     return Consumer<NavigationManager>(builder: (context, tabManager, child) {
       return Scaffold(
         appBar: AppBar(
           elevation: 16,
           title: Text(
             tabManager.tabValue == 0 ? "Activités" : "Comptes",
-            style: theme.textTheme.displayLarge,
+        //    style: theme.textTheme.displayLarge,
           ),
           actions: [if (tabManager.tabValue == 0) Notif()],
         ),

@@ -17,12 +17,16 @@ class _OneNotifPagesState extends State<OneNotifPages> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          // title: Text(widget.title),
-          ),
-      body: Center(
-          // child: Text(widget.subTitle),
-          ),
-    );
+        appBar: AppBar(
+          title: Text("Hianatra"),
+        ),
+        body: Column(
+          spacing: 16.00,
+          children: [
+            Center(
+              child: Text("Hianatra a Ankatso"),
+            ),
+          ],
+        ));
   }
 }

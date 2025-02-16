@@ -4,14 +4,25 @@ import 'package:shadcn_ui/shadcn_ui.dart';
 // ignore: must_be_immutable
 class InputNum extends StatelessWidget {
   TextEditingController controller;
-  InputNum({super.key, required this.controller});
+  String? placeholder;
+  InputNum({super.key, required this.controller, this.placeholder});
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return ShadInputFormField(
+      cursorColor: theme.primaryColor,
       controller: controller,
-      label: Text("votre numéro de téléphone *"),
-      placeholder: Text("entrez votre numero de téléphone"),
+      label: Text(
+        "votre numéro de téléphone *",
+        style: TextStyle(color: theme.primaryColor),
+      ),
+      placeholder: Text(
+        (placeholder!.isEmpty)
+            ? "entrez votre numero de téléphone"
+            : placeholder!,
+        style: TextStyle(color: theme.primaryColor),
+      ),
       decoration: ShadDecoration(
           border: ShadBorder(
         top: ShadBorderSide(color: Colors.grey),

@@ -15,6 +15,7 @@ class _Message extends State<Message> {
   List<bool> rating = [false, false, false, false, false];
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
         appBar: AppBar(title: const Text('Message')),
         body: Container(
@@ -66,11 +67,13 @@ class _Message extends State<Message> {
                       controller: controller,
                       maxLines: 3,
                       enabled: true,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         focusColor: Colors.black,
                         hintText:
                             'ex: Vous devez implementer une systeme de detection d\'embouteillage',
-                        border: OutlineInputBorder(),
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                width: 0.1, color: theme.primaryColor)),
                         //labelText: 'Description de votre Destination'
                       ),
                     )),
@@ -86,13 +89,14 @@ class _Message extends State<Message> {
                 const SizedBox(
                   height: 16.00,
                 ),
-                const Row(
+                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ShadButton(
+                      backgroundColor: theme.secondaryHeaderColor,
                       width: 200,
-                      child: Text('Envoyez le message'),
+                      child: Text('Envoyez le message',style: TextStyle(color: theme.primaryColor),),
                     ),
                   ],
                 )

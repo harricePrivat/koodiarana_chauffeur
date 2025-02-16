@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:koodiarana_chauffeur/models/user.dart';
-import 'package:koodiarana_chauffeur/services/app_cache.dart';
 import 'package:koodiarana_chauffeur/services/app_security_cache.dart';
 
 class AppManager extends ChangeNotifier {
@@ -15,7 +14,7 @@ class AppManager extends ChangeNotifier {
   }
 
   void initializeApp() async {
-    firstLogin = await AppCache().getFirstLogin();
+    firstLogin = await AppSecurityCache().getFirstLogin();
     users = await AppSecurityCache().readConnection();
     notifyListeners();
   }
@@ -23,8 +22,7 @@ class AppManager extends ChangeNotifier {
   Users? get getUsers => users;
 
   void connected(Users user) async {
-    print("Voici le lien de pdp URL :  ${user.pdpUrl}");
-    this.users = user;
+    users = user;
     await AppSecurityCache().addConnection(user);
     notifyListeners();
   }
@@ -37,13 +35,13 @@ class AppManager extends ChangeNotifier {
 
   void firstLoginDone() async {
     firstLogin = false;
-    AppCache().setFirstLogin(false);
+    AppSecurityCache().setFirstLogin(false);
     notifyListeners();
   }
 
   void reFirstLogin() {
     firstLogin = true;
-    AppCache().setFirstLogin(true);
+    AppSecurityCache().setFirstLogin(true);
     notifyListeners();
   }
 }

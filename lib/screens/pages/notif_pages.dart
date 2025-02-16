@@ -25,6 +25,10 @@ class _NotifPagesState extends State<NotifPages> {
               NotifComposant(
                 title: "Hianatra",
                 subTitle: "a 17h a Ankatso",
+              ),
+              NotifComposant(
+                title: "Hianatra",
+                subTitle: "a 17h a Ankatso",
               )
             ],
           ),

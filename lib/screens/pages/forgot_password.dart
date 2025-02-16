@@ -18,6 +18,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   TextEditingController mailNum = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
         appBar: AppBar(title: Text("Recupération de compte")),
         body: BlocListener<GetOtpBloc, GetOtpState>(
@@ -69,15 +70,21 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     backgroundColor: Colors.transparent,
                     title: Text(
                       "Mot de passe oulbié",
-                      //    style: style,
+                      style: TextStyle(color: theme.primaryColor),
                     ),
                     description: Text(
-                        "Entrez votre mail ou numéro de téléphone pour récupérer votre compte"),
+                      "Entrez votre mail ou numéro de téléphone pour récupérer votre compte",
+                      style: TextStyle(color: theme.primaryColor),
+                    ),
                     footer: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         ShadButton(
-                          child: const Text('Récuperer'),
+                          backgroundColor: theme.primaryColor,
+                          child: Text(
+                            'Récuperer',
+                            style: TextStyle(color: theme.secondaryHeaderColor),
+                          ),
                           onPressed: () async {
                             if (formKey.currentState!.saveAndValidate()) {
                               context
@@ -96,10 +103,14 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         ShadForm(
                           key: formKey,
                           child: ShadInputFormField(
+                            style: TextStyle(color: theme.primaryColor),
+                            cursorColor: theme.primaryColor,
                             controller: mailNum,
                             id: 'username',
-                            placeholder: const Text(
-                                'Entrez votre email ou numero de telephone'),
+                            placeholder: Text(
+                              'Entrez votre email ou numero de telephone',
+                              style: TextStyle(color: theme.primaryColor),
+                            ),
                             // description:
                             //     const Text('This is your public display name.'),
                             validator: (v) {

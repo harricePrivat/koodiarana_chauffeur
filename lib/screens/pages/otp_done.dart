@@ -19,6 +19,7 @@ class _OtpDoneState extends State<OtpDone> {
   TextEditingController otp = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
         appBar: AppBar(
           title: Text("OTP"),
@@ -69,15 +70,21 @@ class _OtpDoneState extends State<OtpDone> {
                     backgroundColor: Colors.transparent,
                     title: Text(
                       "OTP de récupération",
-                      //    style: style,
+                      style: TextStyle(color: theme.primaryColor),
                     ),
                     description: Text(
-                        "Veuillez tapez ici l'OTP de récupération de votre compte"),
+                      "Veuillez tapez ici l'OTP de récupération de votre compte",
+                      style: TextStyle(color: theme.primaryColor),
+                    ),
                     footer: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         ShadButton(
-                          child: const Text('Récuperer'),
+                          backgroundColor: theme.primaryColor,
+                          child: Text(
+                            'Récuperer',
+                            style: TextStyle(color: theme.secondaryHeaderColor),
+                          ),
                           onPressed: () async {
                             if (formKey.currentState!.saveAndValidate()) {
                               context.read<TestOtpBloc>().add(OnSubmitOtp(
@@ -95,10 +102,15 @@ class _OtpDoneState extends State<OtpDone> {
                         ShadForm(
                           key: formKey,
                           child: ShadInputFormField(
+                            cursorColor: theme.primaryColor,
+                            style: TextStyle(color: theme.primaryColor),
                             keyboardType: TextInputType.numberWithOptions(),
                             controller: otp,
                             id: 'otp',
-                            placeholder: const Text('OTP de récupération'),
+                            placeholder: Text(
+                              'OTP de récupération',
+                              style: TextStyle(color: theme.primaryColor),
+                            ),
                             // description:
                             //     const Text('This is your public display name.'),
                             validator: (v) {

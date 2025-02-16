@@ -11,10 +11,22 @@ class InputForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return ShadInputFormField(
-      label: (label != null) ? Text(label!) : SizedBox(),
+      cursorColor: theme.primaryColor,
+      label: (label != null)
+          ? Text(
+              label!,
+              style: TextStyle(color: theme.primaryColor),
+            )
+          : SizedBox(),
       controller: controller,
-      placeholder: (placeholder != null) ? Text(placeholder!) : SizedBox(),
+      placeholder: (placeholder != null)
+          ? Text(
+              placeholder!,
+              style: TextStyle(color: theme.primaryColor),
+            )
+          : SizedBox(),
       decoration: const ShadDecoration(
         border: ShadBorder(
           top: ShadBorderSide(color: Colors.grey),

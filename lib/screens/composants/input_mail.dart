@@ -10,10 +10,18 @@ class InputMail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return ShadInputFormField(
-      label: Text(label ?? ""),
+      cursorColor: theme.primaryColor,
+      label: Text(
+        label ?? "",
+        style: TextStyle(color: theme.primaryColor),
+      ),
       controller: mail,
-      placeholder: Text(placeholder ?? ''),
+      placeholder: Text(
+        placeholder ?? '',
+        style: TextStyle(color: theme.primaryColor),
+      ),
       keyboardType: TextInputType.emailAddress,
       decoration: ShadDecoration(
           border: ShadBorder(

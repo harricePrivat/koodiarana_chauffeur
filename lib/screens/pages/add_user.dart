@@ -311,7 +311,7 @@ class _AddUserState extends State<AddUser> {
                                 PasswordInput(
                                     rePassword: false,
                                     controller: password,
-                                    color: theme.primaryColor),
+                                    ),
                               ],
                             );
                           }),

@@ -6,13 +6,14 @@ class PasswordInput extends StatefulWidget {
   TextEditingController controller;
   bool rePassword;
   String? password;
-  Color color;
-  PasswordInput(
-      {super.key,
-      this.password,
-      required this.rePassword,
-      required this.controller,
-      required this.color});
+  // Color color;
+  PasswordInput({
+    super.key,
+    this.password,
+    required this.rePassword,
+    required this.controller,
+    // required this.color
+  });
 
   @override
   State<PasswordInput> createState() => _PasswordInputState();
@@ -23,10 +24,11 @@ class _PasswordInputState extends State<PasswordInput> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return ShadInputFormField(
       id: 'mdp',
-      label: Text("mot de passe"),
-      cursorColor: widget.color,
+      label: Text("mot de passe", style: TextStyle(color: theme.primaryColor)),
+      cursorColor: theme.primaryColor,
       controller: widget.controller,
       placeholder: const Text('*******'),
       obscureText: obscure,
@@ -41,31 +43,31 @@ class _PasswordInputState extends State<PasswordInput> {
           // hintText: '*******',
 
           ),
-      // prefix: Padding(
-      //   padding: const EdgeInsets.all(4.0),
-      //   child: ShadImage.square(
-      //     size: 16,
-      //     LucideIcons.lock,
-      //     color: widget.color,
-      //   ),
-      // ),
-      // suffix: ShadButton(
-      //   width: 24,
-      //   height: 24,
-      //   padding: EdgeInsets.zero,
-      //   decoration: const ShadDecoration(
-      //     secondaryBorder: ShadBorder.none,
-      //     secondaryFocusedBorder: ShadBorder.none,
-      //   ),
-      //   icon: ShadImage.square(
-      //     size: 16,
-      //     obscure ? LucideIcons.eyeOff : LucideIcons.eye,
-      //     color: Colors.white,
-      //   ),
-      //   onPressed: () {
-      //     setState(() => obscure = !obscure);
-      //   },
-      // ),
+      prefix: Padding(
+        padding: const EdgeInsets.all(4.0),
+        child: Icon(
+          size: 16,
+          LucideIcons.lock,
+          color: theme.primaryColor,
+        ),
+      ),
+      suffix: ShadButton(
+        width: 24,
+        height: 24,
+        padding: EdgeInsets.zero,
+        decoration: const ShadDecoration(
+          secondaryBorder: ShadBorder.none,
+          secondaryFocusedBorder: ShadBorder.none,
+        ),
+        icon: Icon(
+          obscure ? LucideIcons.eyeOff : LucideIcons.eye,
+          color: Colors.white,
+          size: 16,
+        ),
+        onPressed: () {
+          setState(() => obscure = !obscure);
+        },
+      ),
       validator: (v) {
         if (!widget.rePassword) {
           final passwordRegex = RegExp(
@@ -92,7 +94,7 @@ class _PasswordInputState extends State<PasswordInput> {
         }
         return null;
       },
-      style: TextStyle(color: widget.color),
+      style: TextStyle(color: theme.primaryColor),
     );
   }
 }

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:koodiarana_chauffeur/bloc/signInGoogle/sign_in_google_bloc.dart';
-import 'package:koodiarana_chauffeur/bloc/signInGoogle/sign_in_google_event.dart';
+// import 'package:koodiarana_chauffeur/bloc/signInGoogle/sign_in_google_bloc.dart';
+// import 'package:koodiarana_chauffeur/bloc/signInGoogle/sign_in_google_event.dart';
 import 'package:koodiarana_chauffeur/bloc/to_login/to_login_bloc.dart';
 import 'package:koodiarana_chauffeur/providers/app_manager.dart';
-import 'package:koodiarana_chauffeur/screens/composants/button_google.dart';
+// import 'package:koodiarana_chauffeur/screens/composants/button_google.dart';
 import 'package:koodiarana_chauffeur/screens/pages/add_user.dart';
 // import 'package:koodiarana_chauffeur/screens/pages/ajout_utilisateur.dart';
 import 'package:koodiarana_chauffeur/screens/pages/forgot_password.dart';
@@ -85,15 +85,21 @@ class _LoginState extends State<Login> {
                     backgroundColor: Colors.transparent,
                     title: Text(
                       "Chauffeur",
-                      //    style: style,
+                      style: TextStyle(color: theme.primaryColor),
                     ),
                     description: Text(
-                        "Se connecter avec votre compte chauffeur Koodiarana"),
+                      "Se connecter avec votre compte chauffeur Koodiarana",
+                      style: TextStyle(color: theme.primaryColor),
+                    ),
                     footer: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         ShadButton(
-                          child: const Text('Se connecter'),
+                          backgroundColor: theme.primaryColor,
+                          child: Text(
+                            'Se connecter',
+                            style: TextStyle(color: theme.secondaryHeaderColor),
+                          ),
                           onPressed: () async {
                             if (formKey.currentState!.saveAndValidate()) {
                               context.read<ToLoginBloc>().add(OnSubmitLogin(
@@ -128,10 +134,14 @@ class _LoginState extends State<Login> {
                           children: [
                             SizedBox(),
                             ShadInputFormField(
+                              style: TextStyle(color: theme.primaryColor),
+                              cursorColor: theme.primaryColor,
                               controller: mailNum,
                               id: 'username',
-                              label:
-                                  const Text('adresse ou numéro de téléphone'),
+                              label: Text(
+                                'adresse ou numéro de téléphone',
+                                style: TextStyle(color: theme.primaryColor),
+                              ),
                               placeholder: const Text(
                                   'Entrez votre email ou numero de telephone'),
                               // description:
@@ -144,9 +154,9 @@ class _LoginState extends State<Login> {
                               },
                             ),
                             PasswordInput(
-                                rePassword: false,
-                                controller: password,
-                                color: theme.primaryColor)
+                              rePassword: false,
+                              controller: password,
+                            )
                           ],
                         ),
                       ),
@@ -162,15 +172,16 @@ class _LoginState extends State<Login> {
                     child: Text(
                       "Mot de passe oublié?",
                       textAlign: TextAlign.start,
+                      style: TextStyle(color: theme.primaryColor),
                     ),
                   ),
-                  Center(
-                    child: ButtonGoogle(
-                      onPressed: () {
-                        context.read<SignInGoogleBloc>().add(TapGoogleButton());
-                      },
-                    ),
-                  )
+                  // Center(
+                  //   child: ButtonGoogle(
+                  //     onPressed: () {
+                  //       context.read<SignInGoogleBloc>().add(TapGoogleButton());
+                  //     },
+                  //   ),
+                  // )
                 ],
               ),
             ),

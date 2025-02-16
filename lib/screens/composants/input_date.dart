@@ -5,8 +5,12 @@ import 'package:shadcn_ui/shadcn_ui.dart';
 class InputDate extends StatelessWidget {
   DateTime datePicker;
   final ValueChanged<DateTime?> onDateChanged;
-  String ?label;
-  InputDate({super.key, this.label, required this.datePicker, required this.onDateChanged});
+  String? label;
+  InputDate(
+      {super.key,
+      this.label,
+      required this.datePicker,
+      required this.onDateChanged});
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? selectedDate = await showDatePicker(
@@ -22,11 +26,16 @@ class InputDate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return ShadInputFormField(
+      cursorColor: theme.primaryColor,
       onPressed: () => _selectDate(context),
       readOnly: true,
-      label: Text(label!),
-      placeholder: Text(datePicker.toString()),
+      label: Text(label!, style: TextStyle(color: theme.primaryColor)),
+      placeholder: Text(
+        datePicker.toString(),
+        style: TextStyle(color: theme.primaryColor),
+      ),
       decoration: ShadDecoration(
           border: ShadBorder(
         top: ShadBorderSide(color: Colors.grey),
