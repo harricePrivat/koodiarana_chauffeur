@@ -36,8 +36,7 @@ import 'package:firebase_core/firebase_core.dart';
 // }
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  print("Notification test");
-  // print("Notification reçue en arrière-plan: ${message.notification?.title}");
+  print("Notification test");   // print("Notification reçue en arrière-plan: ${message.notification?.title}");
 }
 
 void main() async {
